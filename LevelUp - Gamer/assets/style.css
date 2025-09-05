@@ -35,3 +35,27 @@ body{
     display: block;
     margin: 0 auto;
 }
+
+.card {
+  background-color: #000000; /* Fondo negro */
+  color: #FFFFFF;            /* Texto blanco */
+  border: 2px solid #1E90FF; /* Borde azul eléctrico */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Efecto al pasar el mouse */
+  box-shadow: 0 0 20px #39FF14;
+}
+
+.btn-primary {
+  background-color: #39FF14;
+  border: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #1E90FF;
+  color: #fff;
+}
