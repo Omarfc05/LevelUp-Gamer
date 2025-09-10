@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/LevelUp - Gamer/assets/style.css">
 </head>
 <body class="bg-black text-white">
+
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
     <div class="container">
@@ -34,7 +35,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="btn btn-outline-accent position-relative" href="#">
+            <a class="btn btn-outline-accent position-relative" href="carrito.html">
               🛒 Carrito
               <span id="cartCounter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
             </a>
@@ -53,30 +54,33 @@
   <!-- CATÁLOGO DE PRODUCTOS -->
   <main class="container py-5">
     <div class="row g-4">
+
       <!-- Producto 1 -->
       <div class="col-md-4">
         <div class="card bg-dark text-white h-100 shadow-lg border-secondary">
           <img src="assets/images/ps5-console-png-ylf-uz1mld99hjkwi474-Photoroom.png" class="card-img-top p-4" alt="PlayStation 5">
           <div class="card-body">
             <h5 class="card-title">PlayStation 5</h5>
-            <p class="card-text">La consola de nueva generación de Sony con gráficos 4K y mando DualSense.</p>
+            <p class="card-text">Consola de nueva generación de Sony con gráficos 4K y mando DualSense.</p>
             <p class="fw-bold text-accent">$649.990</p>
-            <button class="btn btn-accent w-100">Añadir al carrito</button>
+            <button class="btn btn-accent w-100" onclick="agregarAlCarrito('PS5')">Añadir al carrito</button>
           </div>
         </div>
       </div>
+
       <!-- Producto 2 -->
       <div class="col-md-4">
         <div class="card bg-dark text-white h-100 shadow-lg border-secondary">
           <img src="assets/images/Consola-Xbox-Series-S-768x817-Photoroom.png" class="card-img-top p-4" alt="Xbox Series X">
           <div class="card-body">
             <h5 class="card-title">Xbox Series X</h5>
-            <p class="card-text">La consola más potente de Microsoft con 1TB de almacenamiento.</p>
+            <p class="card-text">Consola más potente de Microsoft con 1TB de almacenamiento.</p>
             <p class="fw-bold text-accent">$629.990</p>
-            <button class="btn btn-accent w-100">Añadir al carrito</button>
+            <button class="btn btn-accent w-100" onclick="agregarAlCarrito('XBOXX')">Añadir al carrito</button>
           </div>
         </div>
       </div>
+
       <!-- Producto 3 -->
       <div class="col-md-4">
         <div class="card bg-dark text-white h-100 shadow-lg border-secondary">
@@ -85,10 +89,11 @@
             <h5 class="card-title">PC Gamer RGB</h5>
             <p class="card-text">Torres gaming con Ryzen 7, RTX 4070 y 32GB RAM.</p>
             <p class="fw-bold text-accent">$1.199.990</p>
-            <button class="btn btn-accent w-100">Añadir al carrito</button>
+            <button class="btn btn-accent w-100" onclick="agregarAlCarrito('PC1')">Añadir al carrito</button>
           </div>
         </div>
       </div>
+
       <!-- Producto 4 -->
       <div class="col-md-4">
         <div class="card bg-dark text-white h-100 shadow-lg border-secondary">
@@ -97,10 +102,11 @@
             <h5 class="card-title">Teclado Mecánico RGB</h5>
             <p class="card-text">Switches rojos ultra rápidos, ideal para eSports.</p>
             <p class="fw-bold text-accent">$89.990</p>
-            <button class="btn btn-accent w-100">Añadir al carrito</button>
+            <button class="btn btn-accent w-100" onclick="agregarAlCarrito('KB1')">Añadir al carrito</button>
           </div>
         </div>
       </div>
+
       <!-- Producto 5 -->
       <div class="col-md-4">
         <div class="card bg-dark text-white h-100 shadow-lg border-secondary">
@@ -109,10 +115,11 @@
             <h5 class="card-title">Mouse Gamer Logitech G Pro</h5>
             <p class="card-text">Sensor HERO 25K, diseño ligero y preciso.</p>
             <p class="fw-bold text-accent">$69.990</p>
-            <button class="btn btn-accent w-100">Añadir al carrito</button>
+            <button class="btn btn-accent w-100" onclick="agregarAlCarrito('MOUSE1')">Añadir al carrito</button>
           </div>
         </div>
       </div>
+
       <!-- Producto 6 -->
       <div class="col-md-4">
         <div class="card bg-dark text-white h-100 shadow-lg border-secondary">
@@ -121,10 +128,11 @@
             <h5 class="card-title">Auriculares HyperX Cloud II</h5>
             <p class="card-text">Sonido envolvente 7.1 y micrófono desmontable.</p>
             <p class="fw-bold text-accent">$79.990</p>
-            <button class="btn btn-accent w-100">Añadir al carrito</button>
+            <button class="btn btn-accent w-100" onclick="agregarAlCarrito('HEAD1')">Añadir al carrito</button>
           </div>
         </div>
       </div>
+
     </div>
   </main>
 

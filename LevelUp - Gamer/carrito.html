@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carrito | LEVEL-UP GAMER</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="bg-black text-white">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="assets/images/logomain.png" height="30">
+        <span class="logo-text">LEVEL-UP <span class="text-accent">GAMER</span></span>
+      </a>
+      <div class="collapse navbar-collapse" id="navmenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#">Cuenta</a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="registro.html">Registro</a></li>
+              <li><a class="dropdown-item" href="login.html">Iniciar sesión</a></li>
+              <li><a class="dropdown-item" href="logout.html">Cerrar sesión</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-accent position-relative" href="carrito.html">
+              🛒 Carrito
+              <span id="cartCounter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="container py-5 text-center">
+    <h1 class="display-5 fw-bold title">Tu Carrito de Compras</h1>
+    <p class="lead text-secondary">Revisa los productos añadidos y aplica tu descuento DUOC si corresponde.</p>
+  </header>
+
+  <!-- Carrito -->
+  <main class="container py-5">
+    <div class="table-responsive">
+      <table class="table table-dark table-striped text-center align-middle">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoCarrito"></tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 flex-column flex-md-row gap-3">
+      <div id="mensajeDescuento" class="text-accent fw-bold"></div>
+      <h4>Total: <span id="totalCarrito">$0</span></h4>
+      <button id="btnCheckout" class="btn btn-accent btn-lg">Finalizar Compra</button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-5 border-top border-secondary py-4">
+    <div class="container d-flex justify-content-between align-items-center">
+      <p class="small text-secondary">© <span id="year"></span> LEVEL-UP GAMER</p>
+      <div class="d-flex gap-3">
+        <a class="text-secondary" href="#">📷</a>
+        <a class="text-secondary" href="#">🎵</a>
+        <a class="text-secondary" href="#">✖️</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/productos.js" defer></script>
+  <script src="assets/js/carrito.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      mostrarCarrito();
+      actualizarContadorCarrito();
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>

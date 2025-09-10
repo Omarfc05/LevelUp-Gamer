@@ -1,3 +1,16 @@
+// Definición de productos
+const PRODUCTOS = [
+  { code: 'PS5', name: 'PlayStation 5', price: 649990 },
+  { code: 'XBOXX', name: 'Xbox Series X', price: 629990 },
+  { code: 'PC1', name: 'PC Gamer RGB', price: 1199990 },
+  { code: 'KB1', name: 'Teclado Mecánico RGB', price: 89990 },
+  { code: 'MOUSE1', name: 'Mouse Gamer Logitech G Pro', price: 69990 },
+  { code: 'HEAD1', name: 'Auriculares HyperX Cloud II', price: 79990 }
+];
+
+// Formato CLP
+function clp(n){ return `$${n.toLocaleString('es-CL')}`; }
+
 function obtenerCarrito(){ return JSON.parse(localStorage.getItem('cart')||'[]'); }
 function guardarCarrito(c){ localStorage.setItem('cart', JSON.stringify(c)); actualizarContadorCarrito(); mostrarCarrito(); }
 
@@ -8,7 +21,7 @@ function agregarAlCarrito(code){
   const item = cart.find(i=>i.code===code);
   if(item) item.qty += 1; else cart.push({code, qty:1});
   guardarCarrito(cart);
-  alert('Producto añadido al carrito.');
+  alert(`${p.name} añadido al carrito.`);
 }
 
 function quitarDelCarrito(code){
@@ -48,7 +61,7 @@ function mostrarCarrito(){
   const email = (localStorage.getItem('correoUsuario')||'').toLowerCase();
   let discount = 0;
   if(email.endsWith('@duoc.cl') || email.endsWith('@profesor.duoc.cl')){
-    discount = total * 0.2; // 20% de por vida para DUOC
+    discount = total * 0.2; // 20% de descuento
     document.getElementById('mensajeDescuento').textContent = `Descuento DUOC aplicado (-${clp(discount)})`;
   }else{
     document.getElementById('mensajeDescuento').textContent = '';
@@ -57,7 +70,15 @@ function mostrarCarrito(){
   document.getElementById('totalCarrito').textContent = clp(total - discount);
 }
 
+function actualizarContadorCarrito(){
+  const contador = document.getElementById('cartCounter');
+  if(contador) contador.textContent = obtenerCarrito().length;
+}
+
 document.addEventListener('DOMContentLoaded', ()=>{
+  actualizarContadorCarrito();
+  mostrarCarrito();
+
   const btn = document.getElementById('btnCheckout');
   if(btn){
     btn.addEventListener('click', ()=>{
@@ -68,5 +89,4 @@ document.addEventListener('DOMContentLoaded', ()=>{
       actualizarContadorCarrito();
     });
   }
-  mostrarCarrito();
 });
