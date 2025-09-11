@@ -18,7 +18,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
         <img src="assets/images/logomain.png" alt="Logo LEVEL-UP GAMER" height="30" class="d-inline-block align-text-top">
         <span class="logo-text">LEVEL-UP <span class="text-accent">GAMER</span></span>
       </a>
@@ -27,7 +27,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navmenu">
         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
-          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
           <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
           <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
           <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
@@ -40,7 +39,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="btn btn-outline-accent position-relative" href="#">
+            <a class="btn btn-outline-accent position-relative" href="carrito.html">
               🛒 Carrito
               <span id="cartCounter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
             </a>
@@ -49,6 +48,8 @@
       </div>
     </div>
   </nav>
+
+  <!-- REGISTRO -->
   <main class="container py-5" style="max-width: 720px;">
     <h1 class="h3 mb-4">Registro de usuario</h1>
     <form id="registerForm" novalidate>
@@ -77,11 +78,10 @@
         <div class="col-md-3">
           <label for="regFechaNac" class="form-label">Fecha Nacimiento</label>
           <input type="date" class="form-control" id="regFechaNac" autocomplete="off" />
-          <div class="invalid-feedback">Ingresa una fecha válida.</div>
         </div>
         <div class="col-md-3">
           <label for="regTipo" class="form-label">Tipo de Usuario</label>
-          <select id="regTipo" class="form-select" aria-label="Tipo de Usuario">
+          <select id="regTipo" class="form-select">
             <option value="Cliente">Cliente</option>
             <option value="Vendedor">Vendedor</option>
             <option value="Administrador">Administrador</option>
@@ -89,38 +89,77 @@
         </div>
         <div class="col-md-4">
           <label for="regRegion" class="form-label">Región <span class="text-danger">*</span></label>
-          <select id="regRegion" class="form-select" required aria-label="Región"></select>
-          <div class="invalid-feedback">Selecciona una región.</div>
+          <select id="regRegion" class="form-select" required></select>
         </div>
         <div class="col-md-4">
           <label for="regComuna" class="form-label">Comuna <span class="text-danger">*</span></label>
-          <select id="regComuna" class="form-select" required aria-label="Comuna"></select>
-          <div class="invalid-feedback">Selecciona una comuna.</div>
+          <select id="regComuna" class="form-select" required></select>
         </div>
         <div class="col-md-4">
           <label for="regDireccion" class="form-label">Dirección <span class="text-danger">*</span></label>
           <input type="text" class="form-control" id="regDireccion" maxlength="300" required placeholder="Tu dirección completa" autocomplete="off" />
-          <div class="invalid-feedback">La dirección es obligatoria.</div>
+        </div>
+        <!-- NUEVO: CÓDIGO DE REFERIDO -->
+        <div class="col-md-6">
+          <label for="regReferido" class="form-label">Código de Referido (opcional)</label>
+          <input type="text" class="form-control" id="regReferido" placeholder="Ej: USER123" />
         </div>
       </div>
       <div class="form-text mt-3">* Debes ser mayor de 18 años para registrarte.</div>
       <button type="submit" class="btn btn-accent mt-3">Crear cuenta</button>
+      <p class="mt-3 small text-secondary">🎮 Cada referido registrado otorga <strong>50 puntos LevelUp</strong>.</p>
     </form>
   </main>
+
+  <!-- FOOTER -->
   <footer class="mt-5 border-top border-secondary py-4">
     <div class="container d-flex flex-wrap justify-content-between align-items-center">
       <p class="mb-0 small text-secondary">© <span id="year"></span> LEVEL-UP GAMER — Todos los derechos reservados.</p>
       <div class="d-flex gap-3">
-        <a class="text-secondary" href="#" aria-label="Instagram">📷</a>
-        <a class="text-secondary" href="#" aria-label="TikTok">🎵</a>
-        <a class="text-secondary" href="#" aria-label="X">✖️</a>
+        <a class="text-secondary" href="#">📷</a>
+        <a class="text-secondary" href="#">🎵</a>
+        <a class="text-secondary" href="#">✖️</a>
       </div>
     </div>
   </footer>
+
   <script src="assets/js/validaciones.js" defer></script>
   <script src="assets/js/carrito.js" defer></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.getElementById("registerForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const nombre = document.getElementById("regNombre").value;
+      const apellidos = document.getElementById("regApellidos").value;
+      const email = document.getElementById("regEmail").value;
+      const referido = document.getElementById("regReferido").value;
+
+      let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+      // Genera código propio
+      const codigoPropio = (nombre + apellidos).toUpperCase().replace(/\s+/g,"") + Math.floor(Math.random()*1000);
+      let puntos = 0;
+
+      if(referido){
+        const refUser = usuarios.find(u => u.codigo === referido);
+        if(refUser){
+          refUser.puntos = (refUser.puntos || 0) + 50; // sumamos puntos al que refirió
+        }
+      }
+
+      usuarios.push({
+        nombre, apellidos, email,
+        codigo: codigoPropio,
+        puntos
+      });
+
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+      alert("Registro exitoso 🎉 Tu código de referido es: " + codigoPropio);
+      window.location.href = "perfil.html"; // redirige al perfil
+    });
   </script>
 </body>
 </html>
