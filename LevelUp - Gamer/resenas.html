@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reseñas | LEVEL-UP GAMER</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+      <img src="assets/images/logomain.png" alt="Logo LEVEL-UP GAMER" height="30">
+      <span class="logo-text">LEVEL-UP <span class="text-accent">GAMER</span></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navmenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+        <li class="nav-item"><a class="nav-link active" href="resenas.html">Reseñas</a></li>
+        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+
+        <!-- Registro / usuario activo -->
+        <li class="nav-item" id="registerBtn" style="display:none;">
+          <a href="registro.html" class="btn btn-sm btn-accent">Registrarse</a>
+        </li>
+        <li class="nav-item dropdown" id="userDropdown" style="display:none;">
+          <a class="nav-link dropdown-toggle text-accent" href="#" data-bs-toggle="dropdown" aria-expanded="false" id="userName"></a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="perfil.html">Perfil</a></li>
+            <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a></li>
+          </ul>
+        </li>
+
+        <!-- Carrito -->
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="carrito.html">
+            🛒 Carrito
+            <span id="cartCounter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="hero container py-5">
+  <div class="row align-items-center g-4">
+    <div class="col-12 text-center">
+      <h1 class="display-5 fw-bold title">Reseñas y Calificaciones</h1>
+      <p class="lead text-secondary">Deja tu opinión sobre los productos y ayuda a otros jugadores a elegir mejor.</p>
+    </div>
+  </div>
+</header>
+
+<!-- Sección de Reseñas -->
+<section class="container py-5">
+  <div class="row g-4">
+    <!-- Formulario de reseña -->
+    <div class="col-md-6">
+      <div class="card bg-dark border-secondary h-100">
+        <div class="card-body">
+          <h5 class="card-title">Escribe tu reseña</h5>
+          <form id="formResena">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="producto" class="form-label">Producto</label>
+              <select id="producto" class="form-select" required>
+                <option value="" selected disabled>Selecciona un producto</option>
+                <option value="Catan">Catan</option>
+                <option value="Carcassonne">Carcassonne</option>
+                <option value="Control Xbox Series X">Control Xbox Series X</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="comentario" class="form-label">Comentario</label>
+              <textarea class="form-control" id="comentario" rows="3" placeholder="Escribe tu reseña..." required></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Calificación</label>
+              <select id="puntuacion" class="form-select" required>
+                <option value="" selected disabled>Selecciona una puntuación</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-accent w-100">Enviar Reseña</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de reseñas -->
+    <div class="col-md-6">
+      <div class="card bg-dark border-secondary h-100">
+        <div class="card-body">
+          <h5 class="card-title">Reseñas recientes</h5>
+          <ul id="listaResenas" class="list-group list-group-flush text-white">
+            <!-- Las reseñas se agregan aquí con JS -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="mt-5 border-top border-secondary py-4">
+  <div class="container d-flex flex-wrap justify-content-between align-items-center">
+    <p class="mb-0 small text-secondary">© <span id="year"></span> LEVEL-UP GAMER — Todos los derechos reservados.</p>
+    <div class="d-flex gap-3">
+      <a class="text-secondary" href="#" aria-label="Instagram">📷</a>
+      <a class="text-secondary" href="#" aria-label="TikTok">🎵</a>
+      <a class="text-secondary" href="#" aria-label="X">✖️</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="assets/js/validaciones.js" defer></script>
+<script src="assets/js/carrito.js" defer></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Usuario activo
+document.addEventListener("DOMContentLoaded", () => {
+  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+  const usuarioActivo = usuarios[usuarios.length - 1];
+
+  const registerBtn = document.getElementById("registerBtn");
+  const userDropdown = document.getElementById("userDropdown");
+  const userName = document.getElementById("userName");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (usuarioActivo) {
+    registerBtn.style.display = "none";
+    userDropdown.style.display = "block";
+    userName.textContent = `👤 ${usuarioActivo.nombre} | ⭐ ${usuarioActivo.puntos || 0} pts`;
+
+    logoutBtn.addEventListener("click", () => {
+      usuarios.pop();
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+      location.reload();
+    });
+  } else {
+    registerBtn.style.display = "block";
+    userDropdown.style.display = "none";
+  }
+
+  // Manejo de reseñas
+  const formResena = document.getElementById("formResena");
+  const listaResenas = document.getElementById("listaResenas");
+
+  const cargarResenas = () => {
+    listaResenas.innerHTML = "";
+    const resenasGuardadas = JSON.parse(localStorage.getItem("resenas")) || [];
+    resenasGuardadas.reverse().forEach(r => {
+      const li = document.createElement("li");
+      li.className = "list-group-item bg-dark text-white border-secondary";
+      li.innerHTML = `<strong>${r.nombre}</strong> (${r.producto}) - ${"⭐".repeat(r.puntuacion)}<br>${r.comentario}`;
+      listaResenas.appendChild(li);
+    });
+  }
+
+  cargarResenas();
+
+  formResena.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nuevaResena = {
+      nombre: document.getElementById("nombre").value,
+      producto: document.getElementById("producto").value,
+      comentario: document.getElementById("comentario").value,
+      puntuacion: document.getElementById("puntuacion").value
+    };
+
+    const resenasGuardadas = JSON.parse(localStorage.getItem("resenas")) || [];
+    resenasGuardadas.push(nuevaResena);
+    localStorage.setItem("resenas", JSON.stringify(resenasGuardadas));
+    formResena.reset();
+    cargarResenas();
+    alert("¡Reseña enviada!");
+  });
+});
+</script>
+</body>
+</html>
