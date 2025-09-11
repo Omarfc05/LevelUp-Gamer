@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level-Up Gamer | Teclado Gamer RGB</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Orbitron -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Tu CSS -->
+  <link rel="stylesheet" href="/LevelUp - Gamer/assets/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+      <img src="assets/images/logomain.png" alt="Logo LEVEL-UP GAMER" height="30" class="d-inline-block align-text-top">
+      <span class="logo-text">LEVEL-UP <span class="text-accent">GAMER</span></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu" aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navmenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+        <li class="nav-item dropdown"> 
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Cuenta</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="registro.html">Registro</a></li>
+            <li><a class="dropdown-item" href="login.html">Iniciar sesión</a></li>
+            <li><a class="dropdown-item" href="logout.html">Cerrar sesión</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="carrito.html">
+            🛒 Carrito
+            <span id="cartCounter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Sección principal del producto -->
+<div class="container py-5">
+  <div class="row g-5 align-items-center">
+    <!-- Imagen grande -->
+    <div class="col-md-6 text-center">
+      <img src="assets/images/tecladonoBG.png" class="img-fluid card-img-top" alt="Teclado Gamer RGB">
+    </div>
+
+    <!-- Información -->
+    <div class="col-md-6">
+      <h1 class="titulo">Teclado Gamer RGB</h1>
+      <p>
+        Experimenta una respuesta ultra rápida con los switches rojos, ideales para eSports.
+        Disfruta de iluminación RGB personalizable y un diseño ergonómico para largas sesiones de juego.
+      </p>
+
+      <h3 class="fw-bold text-accent mt-4">$59.990 CLP</h3>
+
+      <div class="mt-4 d-flex gap-3 flex-wrap">
+        <button class="btn btn-primary px-4">Agregar al Carrito</button>
+        <a href="catalogo.html" class="btn btn-accent px-4">Volver al Catálogo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de características -->
+  <div class="mt-5">
+    <h2 class="gris">Características principales</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Switches Rojos</h5>
+            <p class="card-text">Ultra rápidos y silenciosos, perfectos para eSports y gaming competitivo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Iluminación RGB</h5>
+            <p class="card-text">Personaliza la iluminación con múltiples efectos y modos de color.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Diseño Ergónomico</h5>
+            <p class="card-text">Diseño cómodo para largas sesiones de juego con reposamuñecas incluido.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Productos relacionados -->
+    <div class="mt-5">
+      <h2 class="gris">Productos Relacionados</h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+        <div class="col">
+          <div class="card h-100">
+            <img src="assets/images/seriesX.png" class="card-img-top" alt="Xbox Series X">
+            <div class="card-body">
+              <h5 class="card-title">Xbox Series X</h5>
+              <p class="card-text">La consola más poderosa de Xbox, con 1TB SSD y 4K nativo.</p>
+              <a href="producto-seriesx.html" class="btn btn-accent">Ver más</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="assets/images/oNmXBUydOnE2RCdFrlptBy1PzPufLskAVHYkbsXw.png" class="card-img-top" alt="Control Xbox">
+            <div class="card-body">
+              <h5 class="card-title">Control Inalámbrico Xbox</h5>
+              <p class="card-text">Diseño ergonómico con mejor agarre y latencia reducida.</p>
+              <a href="producto-control.html" class="btn btn-accent">Ver más</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="assets/images/gamepass.png" class="card-img-top" alt="Game Pass">
+            <div class="card-body">
+              <h5 class="card-title">Xbox Game Pass</h5>
+              <p class="card-text">Suscripción mensual con acceso a cientos de juegos.</p>
+              <a href="producto-gamepass.html" class="btn btn-accent">Ver más</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+<!-- Footer -->
+<footer class="py-4 text-center text-white-50">
+  <small>&copy; 2025 Level-Up Gamer. Todos los derechos reservados.</small>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

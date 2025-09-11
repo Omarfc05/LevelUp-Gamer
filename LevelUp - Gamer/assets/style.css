@@ -75,7 +75,7 @@ body{
   color: #fff;
 }
 
-.btn-outline-accent position-relative{
+.btn-outline-accent.position-relative{
   color: white !important;
 }
 .btn-secondary:hover {
@@ -150,4 +150,11 @@ body{
 /* Cursor pointer para la tarjeta */
 .card:hover {
   cursor: pointer;
+}
+
+.product-img {
+  border-radius: 16px;
+  max-height: 400px;
+  object-fit: cover;
+  box-shadow: 0 0 15px #1E90FF;
 }
