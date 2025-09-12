@@ -1,240 +1,73 @@
-// ✅ Validación de correo con dominios permitidos y longitud máxima
-const emailValido = (email) => {
-  if (!email) return false;
-  // formato general correo
-  const formato = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!formato.test(email)) return false;
-  // dominios permitidos
-  const okDomain = /@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i.test(email);
-  return okDomain && email.length <= 100;
-};
+// validaciones.js
 
-// ✅ Validación de contraseña segura
-const passValida = (pass) => {
-  if (!pass) return false;
-  // entre 4 y 10 caracteres, al menos una letra y un número
-  return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,10}$/.test(pass);
-};
-
-// ✅ Validación de RUN chileno (RUT) con módulo 11
-function validarRUN(run) {
-  const limpio = (run || "").toUpperCase().replace(/[^0-9K]/g, "");
-  if (limpio.length < 7 || limpio.length > 9) return false;
-
-  const cuerpo = limpio.slice(0, -1);
-  const dv = limpio.slice(-1);
-
-  let suma = 0, m = 2;
-  for (let i = cuerpo.length - 1; i >= 0; i--) {
-    suma += parseInt(cuerpo[i]) * m;
-    m = m === 7 ? 2 : m + 1;
-  }
-
-  const res = 11 - (suma % 11);
-  const dvCalc = res === 11 ? "0" : res === 10 ? "K" : String(res);
-
-  return dv === dvCalc;
-}
-
-// ✅ Validación de texto genérica (mín y máx caracteres)
-function textoValido(valor, min, max) {
-  if (!valor) return false;
-  const limpio = valor.trim();
-  return limpio.length >= min && limpio.length <= max;
-}
-
-// ✅ Validación de fecha mayor de 18 años
-function mayorDeEdad(fechaStr) {
-  if (!fechaStr) return false;
-  const fecha = new Date(fechaStr);
-  if (isNaN(fecha)) return false;
-  const edad = Math.floor((Date.now() - fecha.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
-  return edad >= 18;
-}
-
-// ✅ Validación de dirección (mín 5, máx 300 caracteres)
-function direccionValida(dir) {
-  return textoValido(dir, 5, 300);
-}
-
-// ✅ Validación de región y comuna
-function seleccionValida(valor) {
-  return !!valor && valor.trim() !== "";
-}
-
-// ========================================
-// 🚀 LÓGICA PRINCIPAL
-// ========================================
 document.addEventListener("DOMContentLoaded", () => {
-  const reg = document.getElementById("registerForm");
-  if (reg) {
-    fillRegionesComunas("regRegion", "regComuna");
+    const run = document.getElementById("regRun");
+    const nombre = document.getElementById("regNombre");
+    const apellidos = document.getElementById("regApellidos");
+    const email = document.getElementById("regEmail");
+    const fechaNac = document.getElementById("regFechaNac");
+    const region = document.getElementById("regRegion");
+    const comuna = document.getElementById("regComuna");
+    const direccion = document.getElementById("regDireccion");
 
-    reg.addEventListener("submit", (e) => {
-      e.preventDefault();
-      let ok = true;
+    // 🧠 FUNCIONES DE VALIDACIÓN
 
-      // Limpiar mensajes previos
-      const mensajes = reg.querySelectorAll(".invalid-feedback, .form-text");
-      mensajes.forEach(m => {
-        if(m.classList.contains('form-text')) return; // conservar textos tipo ayuda
-        m.textContent = "";
-      });
+    const soloLetras = str => /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/.test(str);
+    const correoValido = str =>
+        /^[a-zA-Z0-9._%+-]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/.test(str);
+    const runValido = run => /^[0-9]{7,8}[0-9Kk]$/.test(run);
+    const mayorDe18 = fecha => {
+        const hoy = new Date();
+        const nac = new Date(fecha);
+        let edad = hoy.getFullYear() - nac.getFullYear();
+        const m = hoy.getMonth() - nac.getMonth();
+        if (m < 0 || (m === 0 && hoy.getDate() < nac.getDate())) edad--;
+        return edad >= 18;
+    };
 
-      const run = document.getElementById("regRun");
-      if (!run.value.trim()) {
-        ok = false;
-        run.nextElementSibling.nextElementSibling.textContent = "Completa este campo.";
-      } else if (!validarRUN(run.value)) {
-        ok = false;
-        run.nextElementSibling.nextElementSibling.textContent = "RUN inválido (sin puntos ni guion).";
-      }
+    // ✍️ EVENT LISTENERS
 
-      const nom = document.getElementById("regNombre");
-      if (!nom.value.trim()) {
-        ok = false;
-        nom.nextElementSibling.textContent = "Completa este campo.";
-      } else if (!textoValido(nom.value, 1, 50)) {
-        ok = false;
-        nom.nextElementSibling.textContent = "Nombre requerido (máx 50).";
-      }
-
-      const ape = document.getElementById("regApellidos");
-      if (!ape.value.trim()) {
-        ok = false;
-        ape.nextElementSibling.textContent = "Completa este campo.";
-      } else if (!textoValido(ape.value, 1, 100)) {
-        ok = false;
-        ape.nextElementSibling.textContent = "Apellidos requeridos (máx 100).";
-      }
-
-      const email = document.getElementById("regEmail");
-      if (!email.value.trim()) {
-        ok = false;
-        email.nextElementSibling.nextElementSibling.textContent = "Completa este campo.";
-      } else if (!emailValido(email.value)) {
-        ok = false;
-        email.nextElementSibling.nextElementSibling.textContent = "Correo no permitido o muy largo.";
-      }
-
-      const f = document.getElementById("regFechaNac");
-      if (!f.value.trim()) {
-        ok = false;
-        f.nextElementSibling.textContent = "Completa este campo.";
-      } else if (!mayorDeEdad(f.value)) {
-        ok = false;
-        f.nextElementSibling.textContent = "Debes ser mayor de 18.";
-      }
-
-      const region = document.getElementById("regRegion");
-      if (!region.value.trim()) {
-        ok = false;
-        region.nextElementSibling.textContent = "Completa este campo.";
-      }
-
-      const comuna = document.getElementById("regComuna");
-      if (!comuna.value.trim()) {
-        ok = false;
-        comuna.nextElementSibling.textContent = "Completa este campo.";
-      }
-
-      const dir = document.getElementById("regDireccion");
-      if (!dir.value.trim()) {
-        ok = false;
-        dir.nextElementSibling.textContent = "Completa este campo.";
-      } else if (!direccionValida(dir.value)) {
-        ok = false;
-        dir.nextElementSibling.textContent = "Dirección requerida (máx 300).";
-      }
-
-      if (ok) {
-        localStorage.setItem("correoUsuario", email.value);
-        localStorage.setItem("tipoUsuario", document.getElementById("regTipo").value);
-        alert("Registro exitoso.");
-        location.href = "index.html";
-      }
+    run.addEventListener("input", () => {
+        validarCampo(run, runValido(run.value.trim()));
     });
-  }
 
-  // LOGIN
-  const log = document.getElementById("loginForm");
-  if (log) {
-    log.addEventListener("submit", (e) => {
-      e.preventDefault();
-      let ok = true;
-      const email = document.getElementById("loginEmail");
-      const pass = document.getElementById("loginPassword");
-
-      if (!emailValido(email.value)) {
-        ok = false;
-        email.nextElementSibling.nextElementSibling.textContent = "Correo inválido.";
-      }
-      if (!passValida(pass.value)) {
-        ok = false;
-        pass.nextElementSibling.textContent = "Contraseña 4-10 caracteres, debe incluir letras y números.";
-      }
-
-      if (ok) {
-        localStorage.setItem("correoUsuario", email.value);
-        localStorage.setItem("tipoUsuario", "Cliente");
-        alert("Sesión iniciada.");
-        location.href = "index.html";
-      }
+    nombre.addEventListener("input", () => {
+        validarCampo(nombre, soloLetras(nombre.value.trim()) && nombre.value.trim().length <= 50);
     });
-  }
 
-  // CONTACTO
-  const contact = document.getElementById("contactForm");
-  if (contact) {
-    contact.addEventListener("submit", (e) => {
-      e.preventDefault();
-      let ok = true;
-
-      const nom = document.getElementById("contactNombre");
-      if (!textoValido(nom.value, 1, 100)) {
-        ok = false;
-        nom.nextElementSibling.textContent = "Nombre requerido (máx 100).";
-      }
-
-      const cor = document.getElementById("contactCorreo");
-      if (cor.value && !emailValido(cor.value)) {
-        ok = false;
-        cor.nextElementSibling.nextElementSibling.textContent = "Correo inválido.";
-      }
-
-      const com = document.getElementById("contactComentario");
-      if (!textoValido(com.value, 1, 500)) {
-        ok = false;
-        com.nextElementSibling.textContent = "Comentario requerido (máx 500).";
-      }
-
-      if (ok) {
-        alert("Mensaje enviado. ¡Gracias!");
-        contact.reset();
-      }
+    apellidos.addEventListener("input", () => {
+        validarCampo(apellidos, soloLetras(apellidos.value.trim()) && apellidos.value.trim().length <= 100);
     });
-  }
 
-  // ADMIN regiones/comunas
-  if (document.getElementById("usrRegion")) fillRegionesComunas("usrRegion", "usrComuna");
+    email.addEventListener("input", () => {
+        validarCampo(email, correoValido(email.value.trim()));
+    });
+
+    fechaNac.addEventListener("change", () => {
+        if (!fechaNac.value) return;
+        validarCampo(fechaNac, mayorDe18(fechaNac.value));
+    });
+
+    region.addEventListener("change", () => {
+        validarCampo(region, region.value !== "");
+    });
+
+    comuna.addEventListener("change", () => {
+        validarCampo(comuna, comuna.value !== "");
+    });
+
+    direccion.addEventListener("input", () => {
+        validarCampo(direccion, direccion.value.trim().length > 0 && direccion.value.trim().length <= 300);
+    });
+
+    // ✅ FUNCIÓN REUTILIZABLE PARA VALIDAR
+    function validarCampo(input, condicion) {
+        if (condicion) {
+            input.classList.remove("is-invalid");
+            input.classList.add("is-valid");
+        } else {
+            input.classList.add("is-invalid");
+            input.classList.remove("is-valid");
+        }
+    }
 });
-
-// Regiones y comunas mínimas
-const REGIONES = [
-  { nombre: "Región Metropolitana", comunas: ["Santiago", "Providencia", "Las Condes", "Maipú"] },
-  { nombre: "Valparaíso", comunas: ["Valparaíso", "Viña del Mar", "Quilpué"] },
-  { nombre: "Biobío", comunas: ["Concepción", "Talcahuano", "Chiguayante"] },
-  { nombre: "Los Ríos", comunas: ["Valdivia", "La Unión", "Panguipulli"] }
-];
-
-function fillRegionesComunas(idRegion, idComuna) {
-  const r = document.getElementById(idRegion), c = document.getElementById(idComuna);
-  if (!r || !c) return;
-
-  r.innerHTML = '<option value="">Seleccione...</option>' + REGIONES.map(x => `<option>${x.nombre}</option>`).join('');
-  r.addEventListener("change", () => {
-    const found = REGIONES.find(x => x.nombre === r.value);
-    c.innerHTML = found ? found.comunas.map(y => `<option>${y}</option>`).join("") : '<option value="">Seleccione...</option>';
-  });
-  r.dispatchEvent(new Event("change"));
-}
