@@ -6,23 +6,21 @@
   <title>Registro | LEVEL-UP GAMER</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
   <link rel="stylesheet" href="/LevelUp - Gamer/assets/style.css">
-
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="assets/css/styles.css" />
+
   <script src="assets/js/productos.js" defer></script>
   <script src="assets/js/aplicacion.js" defer></script>
   <script src="assets/js/validaciones.js"></script>
 </head>
 <body class="bg-black text-white">
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
-    <div class="container"
-      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-        <img src="assets/images/logofeo.png" alt="Logo LEVEL-UP GAMER" height="30" class="d-inline-block align-text-top">
 
-      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+  <!-- NAVBAR CORREGIDA -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
         <img src="assets/images/logofeo.png" alt="Logo LEVEL-UP GAMER" height="50" class="d-inline-block align-text-top">
         <span class="logo-text">LEVEL-UP <span class="text-accent">GAMER</span></span>
       </a>
@@ -33,6 +31,7 @@
         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
           <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
           <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link" href="resenas.html">Reseñas</a></li>
           <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Cuenta</a>
@@ -82,6 +81,7 @@
         <div class="col-md-3">
           <label for="regFechaNac" class="form-label">Fecha Nacimiento</label>
           <input type="date" class="form-control" id="regFechaNac" autocomplete="off" />
+          <div class="invalid-feedback"></div>
         </div>
         <div class="col-md-3">
           <label for="regTipo" class="form-label">Tipo de Usuario</label>
@@ -94,14 +94,17 @@
         <div class="col-md-4">
           <label for="regRegion" class="form-label">Región <span class="text-danger">*</span></label>
           <select id="regRegion" class="form-select" required></select>
+          <div class="invalid-feedback"></div>
         </div>
         <div class="col-md-4">
           <label for="regComuna" class="form-label">Comuna <span class="text-danger">*</span></label>
           <select id="regComuna" class="form-select" required></select>
+          <div class="invalid-feedback"></div>
         </div>
         <div class="col-md-4">
           <label for="regDireccion" class="form-label">Dirección <span class="text-danger">*</span></label>
           <input type="text" class="form-control" id="regDireccion" maxlength="300" required placeholder="Tu dirección completa" autocomplete="off" />
+          <div class="invalid-feedback">Dirección requerida (máx 300).</div>
         </div>
         <!-- NUEVO: CÓDIGO DE REFERIDO -->
         <div class="col-md-6">
@@ -127,6 +130,7 @@
     </div>
   </footer>
 
+  <!-- SCRIPTS -->
   <script src="assets/js/validaciones.js" defer></script>
   <script src="assets/js/carrito.js" defer></script>
   <script>
@@ -135,35 +139,115 @@
     document.getElementById("registerForm").addEventListener("submit", function(e){
       e.preventDefault();
 
-      const nombre = document.getElementById("regNombre").value;
-      const apellidos = document.getElementById("regApellidos").value;
-      const email = document.getElementById("regEmail").value;
-      const referido = document.getElementById("regReferido").value;
-
-      let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-      // Genera código propio
-      const codigoPropio = (nombre + apellidos).toUpperCase().replace(/\s+/g,"") + Math.floor(Math.random()*1000);
-      let puntos = 0;
-
-      if(referido){
-        const refUser = usuarios.find(u => u.codigo === referido);
-        if(refUser){
-          refUser.puntos = (refUser.puntos || 0) + 50; // sumamos puntos al que refirió
-        }
-      }
-
-      usuarios.push({
-        nombre, apellidos, email,
-        codigo: codigoPropio,
-        puntos
+      // Limpiar mensajes previos
+      const inputs = this.querySelectorAll("input, select");
+      inputs.forEach(input => {
+        const feedback = input.parentElement.querySelector(".invalid-feedback");
+        if(feedback) feedback.textContent = "";
       });
 
-      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+      let ok = true;
 
-      alert("Registro exitoso 🎉 Tu código de referido es: " + codigoPropio);
-      window.location.href = "perfil.html"; // redirige al perfil
+      const run = document.getElementById("regRun");
+      if(!run.value.trim()) {
+        run.parentElement.querySelector(".invalid-feedback").textContent = "Completa este campo.";
+        ok = false;
+      } else if (!validarRUN(run.value)) {
+        run.parentElement.querySelector(".invalid-feedback").textContent = "RUN inválido (sin puntos ni guion).";
+        ok = false;
+      }
+
+      const nombre = document.getElementById("regNombre");
+      if(!nombre.value.trim()) {
+        nombre.parentElement.querySelector(".invalid-feedback").textContent = "Completa este campo.";
+        ok = false;
+      } else if (!textoValido(nombre.value, 1, 50)) {
+        nombre.parentElement.querySelector(".invalid-feedback").textContent = "El nombre es obligatorio y máximo 50 caracteres.";
+        ok = false;
+      }
+
+      const apellidos = document.getElementById("regApellidos");
+      if(!apellidos.value.trim()) {
+        apellidos.parentElement.querySelector(".invalid-feedback").textContent = "Completa este campo.";
+        ok = false;
+      } else if (!textoValido(apellidos.value, 1, 100)) {
+        apellidos.parentElement.querySelector(".invalid-feedback").textContent = "Los apellidos son obligatorios y máximo 100 caracteres.";
+        ok = false;
+      }
+
+      const email = document.getElementById("regEmail");
+      if(!email.value.trim()) {
+        email.parentElement.querySelector(".invalid-feedback").textContent = "Completa este campo.";
+        ok = false;
+      } else if (!emailValido(email.value)) {
+        email.parentElement.querySelector(".invalid-feedback").textContent = "Correo no permitido o muy largo.";
+        ok = false;
+      }
+
+      const fechaNac = document.getElementById("regFechaNac");
+      if(!fechaNac.value) {
+        fechaNac.parentElement.querySelector(".invalid-feedback").textContent = "Completa este campo.";
+        ok = false;
+      } else if (!mayorDeEdad(fechaNac.value)) {
+        fechaNac.parentElement.querySelector(".invalid-feedback").textContent = "Debes ser mayor de 18 años.";
+        ok = false;
+      }
+
+      const region = document.getElementById("regRegion");
+      if(!region.value.trim()) {
+        region.parentElement.querySelector(".invalid-feedback").textContent = "Completa este campo.";
+        ok = false;
+      }
+
+      const comuna = document.getElementById("regComuna");
+      if(!comuna.value.trim()) {
+        comuna.parentElement.querySelector(".invalid-feedback").textContent = "Completa este campo.";
+        ok = false;
+      }
+
+      const direccion = document.getElementById("regDireccion");
+      if(!direccion.value.trim()) {
+        direccion.parentElement.querySelector(".invalid-feedback").textContent = "Completa este campo.";
+        ok = false;
+      } else if (!direccionValida(direccion.value)) {
+        direccion.parentElement.querySelector(".invalid-feedback").textContent = "Dirección requerida (máx 300).";
+        ok = false;
+      }
+
+      if(ok) {
+        localStorage.setItem("correoUsuario", email.value);
+        localStorage.setItem("tipoUsuario", document.getElementById("regTipo").value);
+        alert("Registro exitoso.");
+        location.href = "index.html";
+      }
     });
+
+    // Llenar regiones y comunas
+    const REGIONES = [
+      { nombre: "Región Metropolitana", comunas: ["Santiago", "Providencia", "Las Condes", "Maipú"] },
+      { nombre: "Valparaíso", comunas: ["Valparaíso", "Viña del Mar", "Quilpué"] },
+      { nombre: "Biobío", comunas: ["Concepción", "Talcahuano", "Chiguayante"] },
+      { nombre: "Los Ríos", comunas: ["Valdivia", "La Unión", "Panguipulli"] }
+    ];
+
+    function fillRegionesComunas(idRegion, idComuna) {
+      const r = document.getElementById(idRegion), c = document.getElementById(idComuna);
+      if (!r || !c) return;
+
+      r.innerHTML = '<option value="">Seleccione...</option>' + REGIONES.map(x => `<option>${x.nombre}</option>`).join('');
+      r.addEventListener("change", () => {
+        const found = REGIONES.find(x => x.nombre === r.value);
+        c.innerHTML = found ? found.comunas.map(y => `<option>${y}</option>`).join("") : '<option value="">Seleccione...</option>';
+      });
+      r.dispatchEvent(new Event("change"));
+    }
+
+    fillRegionesComunas("regRegion", "regComuna");
+
+    // Funciones de validación: emailValido, validarRUN, textoValido, mayorDeEdad, direccionValida
+    // Puedes incluir aquí las funciones que ya tenías o importarlas desde validaciones.js
+    // (O las puedes copiar aquí si quieres el script completo en esta página)
   </script>
+
 </body>
 </html>
