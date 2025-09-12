@@ -74,50 +74,75 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       let ok = true;
 
+      // Limpiar mensajes previos
+      const mensajes = reg.querySelectorAll(".invalid-feedback, .form-text");
+      mensajes.forEach(m => {
+        if(m.classList.contains('form-text')) return; // conservar textos tipo ayuda
+        m.textContent = "";
+      });
+
       const run = document.getElementById("regRun");
-      if (!validarRUN(run.value)) {
+      if (!run.value.trim()) {
+        ok = false;
+        run.nextElementSibling.nextElementSibling.textContent = "Completa este campo.";
+      } else if (!validarRUN(run.value)) {
         ok = false;
         run.nextElementSibling.nextElementSibling.textContent = "RUN inválido (sin puntos ni guion).";
       }
 
       const nom = document.getElementById("regNombre");
-      if (!textoValido(nom.value, 1, 50)) {
+      if (!nom.value.trim()) {
+        ok = false;
+        nom.nextElementSibling.textContent = "Completa este campo.";
+      } else if (!textoValido(nom.value, 1, 50)) {
         ok = false;
         nom.nextElementSibling.textContent = "Nombre requerido (máx 50).";
       }
 
       const ape = document.getElementById("regApellidos");
-      if (!textoValido(ape.value, 1, 100)) {
+      if (!ape.value.trim()) {
+        ok = false;
+        ape.nextElementSibling.textContent = "Completa este campo.";
+      } else if (!textoValido(ape.value, 1, 100)) {
         ok = false;
         ape.nextElementSibling.textContent = "Apellidos requeridos (máx 100).";
       }
 
       const email = document.getElementById("regEmail");
-      if (!emailValido(email.value)) {
+      if (!email.value.trim()) {
+        ok = false;
+        email.nextElementSibling.nextElementSibling.textContent = "Completa este campo.";
+      } else if (!emailValido(email.value)) {
         ok = false;
         email.nextElementSibling.nextElementSibling.textContent = "Correo no permitido o muy largo.";
       }
 
-      const f = document.getElementById("regFechaNac").value;
-      if (!mayorDeEdad(f)) {
+      const f = document.getElementById("regFechaNac");
+      if (!f.value.trim()) {
         ok = false;
-        document.getElementById("regFechaNac").nextElementSibling.textContent = "Debes ser mayor de 18.";
+        f.nextElementSibling.textContent = "Completa este campo.";
+      } else if (!mayorDeEdad(f.value)) {
+        ok = false;
+        f.nextElementSibling.textContent = "Debes ser mayor de 18.";
       }
 
       const region = document.getElementById("regRegion");
-      if (!seleccionValida(region.value)) {
+      if (!region.value.trim()) {
         ok = false;
-        region.nextElementSibling.textContent = "Selecciona región.";
+        region.nextElementSibling.textContent = "Completa este campo.";
       }
 
       const comuna = document.getElementById("regComuna");
-      if (!seleccionValida(comuna.value)) {
+      if (!comuna.value.trim()) {
         ok = false;
-        comuna.nextElementSibling.textContent = "Selecciona comuna.";
+        comuna.nextElementSibling.textContent = "Completa este campo.";
       }
 
       const dir = document.getElementById("regDireccion");
-      if (!direccionValida(dir.value)) {
+      if (!dir.value.trim()) {
+        ok = false;
+        dir.nextElementSibling.textContent = "Completa este campo.";
+      } else if (!direccionValida(dir.value)) {
         ok = false;
         dir.nextElementSibling.textContent = "Dirección requerida (máx 300).";
       }
