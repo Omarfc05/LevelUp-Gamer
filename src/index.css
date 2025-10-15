@@ -1,0 +1,160 @@
+body{
+
+    background-color: black !important;
+    color: white !important;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.gris{
+    text-align: center;
+    color: #D3D3D3 !important;
+    margin-top: 100px;
+    text-decoration: underline;
+}
+
+.titulo{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.navbar{
+    background-color: #1E90FF !important;
+    color: white;
+}
+
+.navbar-brand{
+    color: #ffffff;
+}
+
+.nav-link{
+    color: white;
+}
+
+.logo{
+    display: block;
+    margin: 0 auto;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Efecto al pasar el mouse */
+  box-shadow: 0 0 20px #39FF14;
+}
+
+/* Efecto base de las tarjetas */
+.card {
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  background: #000000; /* Fondo negro */
+  box-shadow: 0 0 8px #1E90FF;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.card-body > button {
+  margin-top: auto;
+}
+
+.btn-primary {
+  background-color: #39FF14;
+  border: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #1E90FF;
+  color: #fff;
+}
+
+.btn-outline-accent.position-relative{
+  color: white !important;
+}
+.btn-secondary:hover {
+  background-color: #1E90FF;
+  color: #fff;
+}
+
+/* Tipografía para títulos */
+.card-title {
+  font-family: 'Orbitron', sans-serif;
+  color: #1E90FF; /* Azul eléctrico */
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+/* Precio con glow azul eléctrico */
+.card-text + .fw-bold.text-accent {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1E90FF;
+  text-shadow:
+    0 0 5px #1E90FF,
+    0 0 10px #1E90FF,
+    0 0 20px #1E90FF;
+}
+
+
+/* Hover de la tarjeta: glow azul y escala */
+.card:hover {
+  border-color: #1E90FF;
+  box-shadow:
+    0 0 10px #1E90FF,
+    0 0 30px #1E90FF,
+    0 0 40px #1E90FF,
+    0 0 60px #1E90FF;
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #001533, #003366);
+}
+
+/* Imagen del producto con filtro azul eléctrico */
+.card-img-top {
+  border-radius: 12px;
+  transition: filter 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  filter: drop-shadow(0 0 8px #1E90FF);
+}
+
+/* Botón acento con efecto neón verde y azul */
+.btn-accent {
+  border: 2px solid #39FF14; /* Verde neón */
+  background-color: transparent;
+  color: #39FF14;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 3px #39FF14;
+  box-shadow: 0 0 5px #39FF14;
+  border-radius: 12px;
+}
+
+.btn-accent:hover {
+  background-color: #39FF14;
+  color: #000000;
+  box-shadow:
+    0 0 10px #39FF14,
+    0 0 20px #39FF14,
+    0 0 30px #39FF14;
+  text-shadow: none;
+}
+
+/* Cursor pointer para la tarjeta */
+.card:hover {
+  cursor: pointer;
+}
+
+.product-img {
+  border-radius: 16px;
+  max-height: 400px;
+  object-fit: cover;
+  box-shadow: 0 0 15px #1E90FF;
+}
