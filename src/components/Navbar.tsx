@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 
  
  export const Navbar = () => {
@@ -5,10 +6,10 @@
      <>
      <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
     <div className="container">
-      <a className="navbar-brand d-flex align-items-center gap-2" href="index.html">
+      <Link to={"/"} className="navbar-brand d-flex align-items-center gap-2">
         
         <span className="logo-text">LEVEL-UP <span className="text-accent">GAMER</span></span>
-      </a>
+      </Link>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
         <span className="navbar-toggler-icon"></span>
       </button>
