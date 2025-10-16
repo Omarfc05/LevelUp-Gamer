@@ -12,17 +12,16 @@ export const Body = () => {
           Creado por <strong>Cristóbal Jerez Donoso, Omar Filun Cabrera</strong> y el equipo LEVEL-UP GAMER. Consolas, periféricos, PCs y más. Envíos a todo Chile y un programa de fidelización con puntos
           <span className="fw-bold">LevelUp</span>.
         </p>
-        <a href="catalogo.html" className="btn btn-accent btn-lg">Ver catálogo</a>
+        <Link to={"/products"} className="btn btn-accent btn-lg">Ver catálogo</Link>
       </div>
       <div className="col-lg-6 text-center">
         <div className="hero-card p-4 rounded-4 shadow-lg">
-          <img src="assets/images/pngtree-high-performance-gaming-pc-setup-with-rgb-lights-and-accessories-png-image_16008815-Photoroom.png" className="img-fluid rounded-4" alt="Set up gamer"/>
+          <img src="/img/setup.png" className="img-fluid rounded-4" alt="Set up gamer"/>
         </div>
       </div>
     </div>
   </header>
 
-  
   <section className="container py-5">
     <h2 className="h3 mb-4">¡ Productos Destacados !</h2>
     <div className="row g-4">
