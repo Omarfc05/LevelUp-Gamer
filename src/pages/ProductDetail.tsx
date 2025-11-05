@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { products } from "../data/Products";
 
 
@@ -26,7 +26,7 @@ export const ProductDetail = () => {
 
         <div className="mt-4 d-flex gap-3 flex-wrap">
           <button className="btn btn-primary px-4">Agregar al Carrito</button>
-          <a href="catalogo.html" className="btn btn-accent px-4">Volver al Catálogo</a>
+          <Link to={"/products"} className="btn btn-ghost flex-fill">Volver al Catálogo</Link>
         </div>
       </div>
     </div>

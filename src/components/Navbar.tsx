@@ -15,14 +15,14 @@ import { Link } from "react-router"
       </button>
       <div className="collapse navbar-collapse" id="navmenu">
         <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-3">
-          <li className="nav-item"><a className="nav-link" href="index.html">Inicio</a></li>
-          <li className="nav-item"><a className="nav-link" href="catalogo.html">Catálogo</a></li>
+          <li className="nav-item"><Link to={"/"} className="nav-link">Inicio</Link></li>
+          <li className="nav-item"><Link to={"/products"}className="nav-link">Catálogo</Link></li>
           <li className="nav-item"><a className="nav-link" href="resenas.html">Reseñas</a></li> 
           <li className="nav-item"><a className="nav-link" href="contacto.html">Contacto</a></li>
 
           
           <li className="nav-item" id="registerBtn">
-            <a href="registro.html" className="btn btn-sm btn-accent">Registrarse</a>
+            <Link to={"/register"} className="btn btn-sm btn-accent">Registrarse</Link>
           </li>
 
           

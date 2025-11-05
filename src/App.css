@@ -1,5 +1,4 @@
 body{
-
     background-color: black !important;
     color: white !important;
     font-family: 'Orbitron', sans-serif;
@@ -7,7 +6,7 @@ body{
 
 .gris{
     text-align: center;
-    color: #D3D3D3 !important;
+    color: #666666 !important;
     margin-top: 100px;
     text-decoration: underline;
 }
@@ -36,11 +35,6 @@ body{
     margin: 0 auto;
 }
 
-.card:hover {
-  transform: scale(1.05); /* Efecto al pasar el mouse */
-  box-shadow: 0 0 20px #39FF14;
-}
-
 /* Efecto base de las tarjetas */
 .card {
   color: white;
@@ -54,12 +48,26 @@ body{
   flex-direction: column;
 }
 
+/* Hover de la tarjeta: glow azul y escala */
+.card:hover {
+  border-color: #1E90FF;
+  box-shadow:
+    0 0 10px #1E90FF,
+    0 0 30px #1E90FF,
+    0 0 40px #1E90FF,
+    0 0 60px #1E90FF;
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #001533, #003366);
+}
+
 .card-body {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
-.card-body > button {
+
+/* Mantener el bloque de acciones al fondo del body (sin tocar JSX) */
+.card .card-body > :last-child{
   margin-top: auto;
 }
 
@@ -78,17 +86,38 @@ body{
 .btn-outline-accent.position-relative{
   color: white !important;
 }
+
 .btn-secondary:hover {
   background-color: #1E90FF;
   color: #fff;
 }
 
 /* Tipografía para títulos */
-.card-title {
+.card .card-title{
   font-family: 'Orbitron', sans-serif;
   color: #1E90FF; /* Azul eléctrico */
   font-weight: 700;
   transition: color 0.3s ease;
+
+  /* Normalizar altura (máx 2 líneas) */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;  /* vendor */
+  line-clamp: 2;          /* estándar */
+  overflow: hidden;
+  line-height: 1.25rem;
+  min-height: calc(1.25rem * 2);
+}
+
+/* Descripción normalizada (máx 3 líneas) */
+.card .card-text{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;  /* vendor */
+  line-clamp: 3;          /* estándar */
+  overflow: hidden;
+  line-height: 1rem;
+  min-height: calc(1rem * 3);
 }
 
 /* Precio con glow azul eléctrico */
@@ -103,23 +132,13 @@ body{
 }
 
 
-/* Hover de la tarjeta: glow azul y escala */
-.card:hover {
-  border-color: #1E90FF;
-  box-shadow:
-    0 0 10px #1E90FF,
-    0 0 30px #1E90FF,
-    0 0 40px #1E90FF,
-    0 0 60px #1E90FF;
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #001533, #003366);
-}
-
-/* Imagen del producto con filtro azul eléctrico */
-.card-img-top {
+.card-img-top{
   border-radius: 12px;
   transition: filter 0.3s ease;
+  aspect-ratio: 16/9;
+  object-fit: contain;
 }
+
 
 .card:hover .card-img-top {
   filter: drop-shadow(0 0 8px #1E90FF);
@@ -152,9 +171,102 @@ body{
   cursor: pointer;
 }
 
+/* Imagen auxiliar (si la usas en otros lugares) */
 .product-img {
   border-radius: 16px;
   max-height: 400px;
   object-fit: cover;
   box-shadow: 0 0 15px #1E90FF;
 }
+
+/* === Alineación vertical consistente entre cards dentro de cada fila === */
+.row .col-md-4{
+  display: flex;
+}
+.row .col-md-4 > .card{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* Botón “hueco” blanco, con glow al hover, sin rellenar */
+.btn-ghost{
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all .2s ease;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus{
+  background-color: transparent;        /* sigue hueco */
+  color: #1E90FF;                       /* tono azul al hover */
+  border-color: #1E90FF;
+  box-shadow: 0 0 10px #1E90FF, 0 0 20px #1E90FF; /* glow sutil */
+  outline: 0;
+}
+/* Tarjeta de registro estilo glass con borde neón */
+.glass-card{
+  background: linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.85));
+  border: 1px solid rgba(30,144,255,.25);
+  backdrop-filter: blur(8px);
+}
+
+.border-neon{
+  box-shadow:
+    0 0 8px rgba(30,144,255,.35),
+    inset 0 0 12px rgba(30,144,255,.15);
+  border-radius: 18px;
+}
+
+/* Labels flotantes: mejor contraste en dark */
+.form-floating > label{
+  color: rgba(255,255,255,.7);
+}
+.form-floating .form-control,
+.form-floating .form-select{
+  background-color: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.15);
+  color: #fff;
+}
+.form-floating .form-control::placeholder{ color: transparent; }
+
+/* Focus con glow azul/verde según intención */
+.form-control:focus,
+.form-select:focus{
+  border-color: #1E90FF;
+  box-shadow: 0 0 0 .2rem rgba(30,144,255,.25), 0 0 12px #1E90FF;
+  background-color: rgba(255,255,255,.05);
+  color: #fff;
+}
+
+/* Ajuste de la etiqueta al enfocar para que no tape el texto */
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label{
+  color: rgba(255,255,255,.85);
+}
+
+/* Textos secundarios en dark */
+.form-text{ color: rgba(255,255,255,.6) !important; }
+
+/* Botón acento ya lo tienes; opcional: más glow al foco */
+.btn-accent:focus{
+  box-shadow:
+    0 0 0 .2rem rgba(57,255,20,.25),
+    0 0 12px #39FF14,
+    0 0 24px #39FF14;
+}
+
+/* Errores visibles pero elegantes en dark */
+.was-validated .form-control:invalid,
+.form-control.is-invalid{
+  border-color: #dc3545;
+  box-shadow: 0 0 0 .2rem rgba(220,53,69,.2);
+}
+.invalid-feedback{ color: #ff6b81; }
+

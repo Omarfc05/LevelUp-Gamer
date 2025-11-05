@@ -41,20 +41,22 @@ export const Body = () => {
       </div>
       
       <div className="col-md-4">
+        <Link to={"/404"}>
         <div className="card h-100 text-center">
           <img src="/img/carcassonne.png" className="card-img-top" alt="Carcassonne"/>
           <div className="card-body">
             <h5 className="card-title">Carcassonne</h5>
             <p className="card-text">Juego de fichas medieval fácil de aprender.</p>
             <p className="fw-bold">$24.990 CLP</p>
-            
           </div>
         </div>
+        </Link>
       </div>
       
       <div className="col-md-4">
+        <Link to={"404"}>
         <div className="card h-100 text-center">
-          <img src="assets/images/oNmXBUydOnE2RCdFrlptBy1PzPufLskAVHYkbsXw.png" className="card-img-top" alt="Control Xbox Series X"/>
+          <img src="/img/xboxcontrol.png" className="card-img-top" alt="Control Xbox Series X"/>
           <div className="card-body">
             <h5 className="card-title">Control Xbox Series X</h5>
             <p className="card-text">Control inalámbrico con botones mapeables.</p>
@@ -62,6 +64,7 @@ export const Body = () => {
             
           </div>
         </div>
+        </Link>
       </div>
     </div>
   </section>
