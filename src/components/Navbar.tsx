@@ -7,7 +7,7 @@ import { Link } from "react-router"
      <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
     <div className="container">
       <Link to={"/"} className="navbar-brand d-flex align-items-center gap-2">
-        
+        <img src="/img/iconav.png" alt="Logo" width={100} height={35} className="brand-icon" />
         <span className="logo-text">LEVEL-UP <span className="text-accent">GAMER</span></span>
       </Link>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -17,8 +17,8 @@ import { Link } from "react-router"
         <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-3">
           <li className="nav-item"><Link to={"/"} className="nav-link">Inicio</Link></li>
           <li className="nav-item"><Link to={"/products"}className="nav-link">Catálogo</Link></li>
-          <li className="nav-item"><a className="nav-link" href="resenas.html">Reseñas</a></li> 
-          <li className="nav-item"><a className="nav-link" href="contacto.html">Contacto</a></li>
+          <li className="nav-item"><Link to={"/resenas"} className="nav-link">Reseñas</Link></li> 
+          <li className="nav-item"><Link to={"/contacto"} className="nav-link">Contacto</Link></li>
 
           
           <li className="nav-item" id="registerBtn">

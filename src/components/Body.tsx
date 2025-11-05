@@ -70,7 +70,7 @@ export const Body = () => {
   </section>
 
   <div className="d-flex justify-content-center">
-    <Link to={"/products"} className="btn btn-secondary">Ver Catálogo Completo</Link>
+    <Link to={"/products"} className="btn btn-ghost">Ver Catálogo Completo</Link>
   </div>
     </>
   )

@@ -13,6 +13,7 @@ import { ProductDetail } from "./pages/ProductDetail";
 
 import { NotFound } from "./pages/NotFound";
 import { Register } from './pages/Register';
+import { Reviews } from './pages/Reviews';
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
         <Route path="/products/:id" element={<ProductDetail/>} />
         <Route path="/404" element={<NotFound/>} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/resenas" element={<Reviews/>} />
+        <Route path="/contacto" element={<Contact/>} />
         
       </Route>
     </Routes>  

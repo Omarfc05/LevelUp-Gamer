@@ -26,7 +26,7 @@ export const ProductDetail = () => {
 
         <div className="mt-4 d-flex gap-3 flex-wrap">
           <button className="btn btn-primary px-4">Agregar al Carrito</button>
-          <Link to={"/products"} className="btn btn-ghost flex-fill">Volver al Catálogo</Link>
+          <Link to={"/products"} className="btn btn-ghost">Volver al Catálogo</Link>
         </div>
       </div>
     </div>
