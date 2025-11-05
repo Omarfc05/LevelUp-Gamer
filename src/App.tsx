@@ -7,6 +7,7 @@ import { ProductDetail } from "./pages/ProductDetail";
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
+import { NotFound } from "./pages/NotFound";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/products/:id" element={<ProductDetail/>} />
+        <Route path="/404" element={<NotFound/>} />
       </Route>
     </Routes>  
   );

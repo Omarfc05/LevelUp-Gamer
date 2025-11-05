@@ -25,11 +25,11 @@ export const Body = () => {
   <section className="container py-5">
     <h2 className="h3 mb-4">¡ Productos Destacados !</h2>
     <div className="row g-4">
-      
+      {/* Estos solo son productos placeholders para el inicio, no se cargan dinamicamente como en el catalogo */}
       <div className="col-md-4">
-        <a href="notfound.html">
+        <Link to={"/404"}>
         <div className="card h-100 text-center">
-          <img src="assets/images/3DBox_CATAN_BaseGame_NE-Photoroom.png" className="card-img-top" alt="Catan"/>
+          <img src="/img/catan.png" className="card-img-top" alt="Catan"/>
           <div className="card-body">
             <h5 className="card-title">Catan</h5>
             <p className="card-text">Juego de estrategia clásico. Ideal para 3-4 jugadores.</p>
@@ -37,12 +37,12 @@ export const Body = () => {
             
           </div>
         </div>
-        </a>
+        </Link>
       </div>
       
       <div className="col-md-4">
         <div className="card h-100 text-center">
-          <img src="assets/images/cacasonnenoBG.png" className="card-img-top" alt="Carcassonne"/>
+          <img src="/img/carcassonne.png" className="card-img-top" alt="Carcassonne"/>
           <div className="card-body">
             <h5 className="card-title">Carcassonne</h5>
             <p className="card-text">Juego de fichas medieval fácil de aprender.</p>
