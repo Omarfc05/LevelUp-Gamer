@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom"
-import { products } from "../data/Products";
+import { products } from "../data/products";
 
 
 export const ProductDetail = () => {

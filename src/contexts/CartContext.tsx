@@ -1,129 +1,82 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 
-// 🧩 Tipo de producto (basado en tu archivo Products.tsx)
 export type Product = {
   id: number;
   title: string;
-  description: string;
+  description?: string;
+  category?: string;
   price: number;
   imgSource: string;
 };
 
-// 🧩 Tipo para ítem del carrito
-export type CartItem = Product & { quantity: number };
+export type CartItem = Product & { qty: number };
 
-// 🧩 Tipo del contexto del carrito
 type CartContextType = {
-  cart: CartItem[];
-  addToCart: (product: Product, qty?: number) => void;
-  removeFromCart: (productId: number) => void;
-  increment: (productId: number) => void;
-  decrement: (productId: number) => void;
+  items: CartItem[];
+  addToCart: (p: Product) => void;
+  removeOne: (id: number) => void;
+  removeAll: (id: number) => void;
   clearCart: () => void;
-  totalCount: number;
-  totalPrice: number;
+  formatCLP: (n: number) => string;
 };
 
-// 🧩 Creación del contexto
-const CartContext = createContext<CartContextType | undefined>(undefined);
+const CartContext = createContext<CartContextType | null>(null);
 
-const STORAGE_KEY = "levelup_cart_v1";
+export function CartProvider({ children }: { children: ReactNode }) {
+  //Definimos el useState de los items del carrito
+  const [items, setItems] = useState<CartItem[]>([]);
 
-// 🧩 Proveedor del carrito
-export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
-
-  // Cargar carrito desde localStorage
-  useEffect(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      try {
-        setCart(JSON.parse(raw));
-      } catch (e) {
-        console.error("Error al leer carrito:", e);
-      }
-    }
-  }, []);
-
-  // Guardar carrito en localStorage
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-  }, [cart]);
-
-  // 🧩 Agregar producto al carrito
-  const addToCart = (product: Product, qty = 1) => {
-    setCart((prev) => {
-      const existing = prev.find((p) => p.id === product.id);
-      if (!existing) {
-        return [...prev, { ...product, quantity: qty }];
-      }
-      return prev.map((p) =>
-        p.id === product.id ? { ...p, quantity: p.quantity + qty } : p
+  //Definimos la funcion para añadir al carro. Si el producto existe, añade 1 a la cantidad.
+  const addToCart = (p: Product) => {
+    setItems((prev) => {
+      const exists = prev.find((it) => it.id === p.id);
+      if (!exists) return [...prev, { ...p, qty: 1 }];
+      return prev.map((it) =>
+        it.id === p.id ? { ...it, qty: it.qty + 1 } : it
       );
     });
   };
 
-  // 🧩 Eliminar producto
-  const removeFromCart = (id: number) => {
-    setCart((prev) => prev.filter((p) => p.id !== id));
+  //Definimos la funcion para remover del carro.
+  const removeOne = (id: number) => {
+    setItems((prev) => {
+      const it = prev.find((x) => x.id === id);
+      if (!it) return prev;
+      if (it.qty === 1) return prev.filter((x) => x.id !== id);
+      return prev.map((x) => (x.id === id ? { ...x, qty: x.qty - 1 } : x));
+    });
   };
 
-  // 🧩 Incrementar cantidad
-  const increment = (id: number) => {
-    setCart((prev) =>
-      prev.map((p) =>
-        p.id === id ? { ...p, quantity: p.quantity + 1 } : p
-      )
-    );
+  //FUNCION APRA ELIMINAR TODOS LOS PRODUCTOS DE UNA MISMA ID
+  const removeAll = (id: number) => {
+    setItems((prev) => prev.filter((x) => x.id !== id));
   };
 
-  // 🧩 Decrementar cantidad
-  const decrement = (id: number) => {
-    setCart((prev) =>
-      prev.map((p) =>
-        p.id === id ? { ...p, quantity: Math.max(1, p.quantity - 1) } : p
-      )
-    );
-  };
+  //LIMPIAR EL CARRITO POR COMPLETO
+  const clearCart = () => setItems([]);
 
-  // 🧩 Vaciar carrito
-  const clearCart = () => setCart([]);
+  //DAMOS FORMATO DE PRECIO CHILENO
+  const formatCLP = (n: number) =>
+    new Intl.NumberFormat("es-CL", {
+      style: "currency",
+      currency: "CLP",
+      maximumFractionDigits: 0,
+    }).format(n);
 
-  // 🧩 Totales
-  const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-
+  //Devolvemos el PROVIDER con todas las funciones para que esten disponibles a nivel global
   return (
     <CartContext.Provider
-      value={{
-        cart,
-        addToCart,
-        removeFromCart,
-        increment,
-        decrement,
-        clearCart,
-        totalCount,
-        totalPrice,
-      }}
+      value={{ items, addToCart, removeOne, removeAll, clearCart, formatCLP }}
     >
       {children}
     </CartContext.Provider>
   );
-};
+}
 
-// 🧩 Hook para usar el carrito fácilmente
-export const useCart = (): CartContextType => {
-  const context = useContext(CartContext);
-  if (!context)
-    throw new Error("useCart debe usarse dentro de un CartProvider");
-  return context;
+export const useCart = () => {
+  //Creamos un contexto con CartContext
+  const ctx = useContext(CartContext);
+  //si el contexto no existe aun (es NaN o null) enviar un error
+  if (!ctx) throw new Error("useCart debe usarse dentro de <CartProvider>");
+  return ctx;
 };
