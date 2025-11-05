@@ -44,7 +44,7 @@ export const Products = () => {
         <select
           name="category"
           id="category"
-          className="form-select form-select-sm"
+          className="form-select form-select-sm bg-dark text-white border-secondary"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
@@ -62,7 +62,7 @@ export const Products = () => {
         <input
           id="minPrice"
           type="number"
-          className="form-control form-control-sm"
+          className="form-control form-control-sm bg-dark text-white border-secondary"
           style={{ width: 110 }}
           value={minPrice}
           min={minPriceProductos}
@@ -77,7 +77,7 @@ export const Products = () => {
         <input
           id="maxPrice"
           type="number"
-          className="form-control form-control-sm"
+          className="form-control form-control-sm bg-dark text-white border-secondary"
           style={{ width: 110 }}
           value={maxPrice}
           min={minPriceProductos}
@@ -88,7 +88,7 @@ export const Products = () => {
           }}
         />
 
-        <button type="button" className="btn btn-outline-secondary btn-sm" onClick={handleReset}>
+        <button type="button" className="btn btn-ghost" onClick={handleReset}>
           Restablecer
         </button>
       </div>

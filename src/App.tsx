@@ -14,6 +14,7 @@ import { ProductDetail } from "./pages/ProductDetail";
 import { NotFound } from "./pages/NotFound";
 import { Register } from './pages/Register';
 import { Reviews } from './pages/Reviews';
+import { Carrito } from './pages/Carrito';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/register" element={<Register/>} />
         <Route path="/resenas" element={<Reviews/>} />
         <Route path="/contacto" element={<Contact/>} />
+        <Route path="/carrito" element={<Carrito/>} />
         
       </Route>
     </Routes>  

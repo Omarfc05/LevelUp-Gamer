@@ -10,7 +10,7 @@ export const Body = () => {
         <h1 className="display-5 fw-bold title">Sube de nivel tu setup</h1>
         <p className="lead text-secondary">
           Creado por <strong>Cristóbal Jerez Donoso, Omar Filun Cabrera</strong> y el equipo LEVEL-UP GAMER. Consolas, periféricos, PCs y más. Envíos a todo Chile y un programa de fidelización con puntos
-          <span className="fw-bold">LevelUp</span>.
+          <span className="fw-bold"> LevelUp</span>.
         </p>
         <Link to={"/products"} className="btn btn-accent btn-lg">Ver catálogo</Link>
       </div>

@@ -1,10 +1,13 @@
-import { Link } from "react-router"
+import { Link } from "react-router-dom"
+import { useCart } from "../contexts/CartContext"
 
- 
- export const Navbar = () => {
-   return (
-     <>
-     <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
+export const Navbar = () => {
+  const { items } = useCart();
+  const totalQty = items.reduce((acc, it) => acc + it.qty, 0);
+
+  return (
+    <>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
     <div className="container">
       <Link to={"/"} className="navbar-brand d-flex align-items-center gap-2">
         <img src="/img/iconav.png" alt="Logo" width={100} height={35} className="brand-icon" />
@@ -16,37 +19,32 @@ import { Link } from "react-router"
       <div className="collapse navbar-collapse" id="navmenu">
         <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-3">
           <li className="nav-item"><Link to={"/"} className="nav-link">Inicio</Link></li>
-          <li className="nav-item"><Link to={"/products"}className="nav-link">Catálogo</Link></li>
-          <li className="nav-item"><Link to={"/resenas"} className="nav-link">Reseñas</Link></li> 
+          <li className="nav-item"><Link to={"/products"} className="nav-link">Catálogo</Link></li>
+          <li className="nav-item"><Link to={"/resenas"} className="nav-link">Reseñas</Link></li>
           <li className="nav-item"><Link to={"/contacto"} className="nav-link">Contacto</Link></li>
 
-          
           <li className="nav-item" id="registerBtn">
             <Link to={"/register"} className="btn btn-sm btn-accent">Registrarse</Link>
           </li>
 
-          
-          <li className="nav-item dropdown" id="userDropdown">
-            <a className="nav-link dropdown-toggle text-accent" href="#" data-bs-toggle="dropdown" aria-expanded="false" id="userName"></a>
-            <ul className="dropdown-menu dropdown-menu-dark">
-              <li><a className="dropdown-item" href="perfil.html">Perfil</a></li>
-              <li><a className="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a></li>
-            </ul>
-          </li>
-
-          
           <li className="nav-item">
-            <a className="nav-link position-relative" href="carrito.html">
+            <Link to="/carrito" className="nav-link position-relative">
               🛒 Carrito
-              <span id="cartCounter" className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-            </a>
+              {totalQty > 0 && (
+                <span
+                  className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge"
+                  aria-live="polite"
+                  aria-label={`Productos en carrito: ${totalQty}`}
+                >
+                  {totalQty}
+                </span>
+              )}
+            </Link>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-     </>
-   )
- }
- 
-  
+    </>
+  )
+}
