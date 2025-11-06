@@ -73,7 +73,7 @@ export const ProductDetail = () => {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-3">
         <div className="col">
           <div className="card h-100">
-            <img src="assets/images/seriesX.png" className="card-img-top" alt="Xbox Series X"/>
+            <img src="/img/seriesX.png" className="card-img-top" alt="Xbox Series X"/>
             <div className="card-body">
               <h5 className="card-title">Xbox Series X</h5>
               <p className="card-text">La consola más poderosa de Xbox, con 1TB SSD y 4K nativo.</p>
@@ -83,21 +83,21 @@ export const ProductDetail = () => {
         </div>
         <div className="col">
           <div className="card h-100">
-            <img src="assets/images/oNmXBUydOnE2RCdFrlptBy1PzPufLskAVHYkbsXw.png" className="card-img-top" alt="Control Xbox"/>
+            <img src="/img/xboxcontrol.png" className="card-img-top" alt="Control Xbox"/>
             <div className="card-body">
               <h5 className="card-title">Control Inalámbrico Xbox</h5>
               <p className="card-text">Diseño ergonómico con mejor agarre y latencia reducida.</p>
-              <Link to="/products/3" className="btn btn-accent">Ver más</Link>
+              <Link to="/404" className="btn btn-accent">Ver más</Link>
             </div>
           </div>
         </div>
         <div className="col">
           <div className="card h-100">
-            <img src="assets/images/gamepass.png" className="card-img-top" alt="Game Pass"/>
+            <img src="/img/gamepass.png" className="card-img-top" alt="Game Pass"/>
             <div className="card-body">
               <h5 className="card-title">Xbox Game Pass</h5>
               <p className="card-text">Suscripción mensual con acceso a cientos de juegos.</p>
-              <Link to="/products/4" className="btn btn-accent">Ver más</Link>
+              <Link to="/404" className="btn btn-accent">Ver más</Link>
             </div>
           </div>
         </div>
