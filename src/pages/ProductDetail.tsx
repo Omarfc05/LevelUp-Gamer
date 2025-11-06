@@ -1,35 +1,42 @@
 import { Link, useParams } from "react-router-dom"
-import { products } from "../data/products";
-
+import { products } from "../data/products"
+import { useCart } from "../contexts/CartContext"
 
 export const ProductDetail = () => {
-  const {id} = useParams<{ id: string}>();
-  const pid = Number(id);
-  const product = products.find((p) => p.id === pid);
+  const { id } = useParams<{ id: string }>()
+  const pid = Number(id)
+  const product = products.find((p) => p.id === pid)
+  const { addToCart, formatCLP } = useCart()
+
+  if (!product) {
+    return (
+      <main className="container py-5 text-center">
+        <h1 className="display-6 fw-bold title">Producto no encontrado</h1>
+        <Link to="/products" className="btn btn-ghost mt-3">Volver al Catálogo</Link>
+      </main>
+    )
+  }
+
   return (
     <>
     <div className="container py-5">
     <div className="row g-5 align-items-center">
-      
       <div className="col-md-6 text-center">
-        <img src={product?.imgSource} className="img-fluid card-img-top" alt="Xbox Series S"/>
+        <img src={product.imgSource} className="img-fluid card-img-top" alt={product.title}/>
       </div>
 
-      
       <div className="col-md-6">
-        <h1 className="titulo">{product?.title}</h1>
-        <p>
-          {product?.description}
-        </p>
-
-        <h3 className="fw-bold text-accent mt-4">${product?.price} CLP</h3>
+        <h1 className="titulo">{product.title}</h1>
+        <p>{product.description}</p>
+        <h3 className="fw-bold text-accent mt-4">{formatCLP(product.price)}</h3>
 
         <div className="mt-4 d-flex gap-3 flex-wrap">
-          <button className="btn btn-primary px-4">Agregar al Carrito</button>
+          <button className="btn btn-accent px-4" onClick={() => addToCart(product)}>Añadir al Carrito</button>
           <Link to={"/products"} className="btn btn-ghost">Volver al Catálogo</Link>
         </div>
       </div>
     </div>
+
     <div className="mt-5">
       <h2 className="gris">Características principales</h2>
       <h1> ¡¡ESTOS SON PLACEHOLDERS ANTERIORES!!</h1>
@@ -70,7 +77,7 @@ export const ProductDetail = () => {
             <div className="card-body">
               <h5 className="card-title">Xbox Series X</h5>
               <p className="card-text">La consola más poderosa de Xbox, con 1TB SSD y 4K nativo.</p>
-              <a href="producto-seriesx.html" className="btn btn-accent">Ver más</a>
+              <Link to="/products/2" className="btn btn-accent">Ver más</Link>
             </div>
           </div>
         </div>
@@ -80,7 +87,7 @@ export const ProductDetail = () => {
             <div className="card-body">
               <h5 className="card-title">Control Inalámbrico Xbox</h5>
               <p className="card-text">Diseño ergonómico con mejor agarre y latencia reducida.</p>
-              <a href="producto-control.html" className="btn btn-accent">Ver más</a>
+              <Link to="/products/3" className="btn btn-accent">Ver más</Link>
             </div>
           </div>
         </div>
@@ -90,7 +97,7 @@ export const ProductDetail = () => {
             <div className="card-body">
               <h5 className="card-title">Xbox Game Pass</h5>
               <p className="card-text">Suscripción mensual con acceso a cientos de juegos.</p>
-              <a href="producto-gamepass.html" className="btn btn-accent">Ver más</a>
+              <Link to="/products/4" className="btn btn-accent">Ver más</Link>
             </div>
           </div>
         </div>

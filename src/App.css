@@ -1,7 +1,6 @@
 body{
     background-color: black !important;
     color: white !important;
-    font-family: 'Orbitron', sans-serif;
 }
 
 .gris{
@@ -15,11 +14,13 @@ body{
     text-align: center;
     margin-top: 50px;
     margin-bottom: 50px;
+    
 }
 
 .navbar{
     background-color: #1E90FF !important;
     color: white;
+    font-family: 'Orbitron', sans-serif;
 }
 
 .navbar-brand{
@@ -269,3 +270,67 @@ body{
   box-shadow: 0 0 0 .2rem rgba(220,53,69,.2);
 }
 .invalid-feedback{ color: #ff6b81; }
+.checkout-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(3px);
+  z-index: 1080;
+}
+
+.checkout-card{
+  background: linear-gradient(180deg, rgba(0,0,0,.8), rgba(0,0,0,.95));
+  border: 1px solid rgba(30,144,255,.35);
+  box-shadow: 0 0 20px #1E90FF55, inset 0 0 12px #1E90FF22;
+  border-radius: 16px;
+  padding: 28px 32px;
+  min-width: 280px;
+  animation: popIn .2s ease-out;
+}
+
+.checkmark{
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  border: 2px solid #39FF14;
+  color: #39FF14;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  box-shadow: 0 0 12px #39FF1455, inset 0 0 12px #39FF1422;
+  animation: pulse .9s ease-out;
+}
+
+@keyframes popIn{
+  from{ transform: scale(.92); opacity: 0; }
+  to{ transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse{
+  0%{ transform: scale(.9); }
+  60%{ transform: scale(1.05); }
+  100%{ transform: scale(1); }
+}
+
+.btn-ghost{
+  background: transparent;
+  border: 2px solid #ffffff33;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all .2s ease;
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus{
+  border-color: #1E90FF;
+  color: #1E90FF;
+  box-shadow: 0 0 10px #1E90FF, 0 0 20px #1E90FF;
+}
+
+.qty-btn{
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+}

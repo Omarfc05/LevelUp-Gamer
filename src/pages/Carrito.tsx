@@ -1,13 +1,22 @@
-import { Link } from "react-router-dom"
-import { useCart } from "../contexts/CartContext";
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { useCart } from "../contexts/CartContext"
 
 export const Carrito = () => {
-  const { items, addToCart, removeOne, removeAll, clearCart, formatCLP } = useCart();
+  const { items, addToCart, removeOne, removeAll, clearCart, formatCLP } = useCart()
+  const [paid, setPaid] = useState(false)
+  const navigate = useNavigate()
 
-  const totalAmount = items.reduce(
-    (acumulador, producto) => acumulador + producto.price * producto.qty,
-    0
-  );
+  const totalAmount = items.reduce((acc, p) => acc + p.price * p.qty, 0)
+
+  const handleFakeCheckout = () => {
+    setPaid(true)
+    clearCart()
+    setTimeout(() => {
+      setPaid(false)
+      navigate("/carrito")
+    }, 1600)
+  }
 
   if (items.length === 0) {
     return (
@@ -15,8 +24,17 @@ export const Carrito = () => {
         <h1 className="display-5 fw-bold title">Carrito</h1>
         <p className="lead text-secondary">Tu carrito está vacío.</p>
         <Link to="/products" className="btn btn-ghost mt-2">Ir al catálogo</Link>
+        {paid && (
+          <div className="checkout-overlay d-flex align-items-center justify-content-center">
+            <div className="checkout-card text-center">
+              <div className="checkmark">✓</div>
+              <h2 className="h4 mb-2 text-accent">¡Pago realizado!</h2>
+              <p className="text-secondary mb-0">Gracias por tu compra</p>
+            </div>
+          </div>
+        )}
       </main>
-    );
+    )
   }
 
   return (
@@ -36,7 +54,7 @@ export const Carrito = () => {
           <div className="col-12 col-lg-8">
             <ul className="list-group">
               {items.map((it) => {
-                const subtotal = it.price * it.qty;
+                const subtotal = it.price * it.qty
                 return (
                   <li
                     key={it.id}
@@ -57,34 +75,19 @@ export const Carrito = () => {
                     </div>
 
                     <div className="d-flex align-items-center gap-2">
-                      <button
-                        className="btn btn-ghost btn-sm qty-btn"
-                        onClick={() => removeOne(it.id)}
-                        aria-label="Quitar uno"
-                      >
-                        −
-                      </button>
+                      <button className="btn btn-ghost btn-sm qty-btn" onClick={() => removeOne(it.id)}>−</button>
                       <span className="px-2 fw-semibold">{it.qty}</span>
-                      <button
-                        className="btn btn-accent btn-sm qty-btn"
-                        onClick={() => addToCart(it)}
-                        aria-label="Agregar uno"
-                      >
-                        +
-                      </button>
+                      <button className="btn btn-accent btn-sm qty-btn" onClick={() => addToCart(it)}>+</button>
                     </div>
 
                     <div className="text-end" style={{ minWidth: 140 }}>
                       <div className="fw-bold text-accent">{formatCLP(subtotal)}</div>
-                      <button
-                        className="btn btn-link text-danger p-0 small"
-                        onClick={() => removeAll(it.id)}
-                      >
+                      <button className="btn btn-link text-danger p-0 small" onClick={() => removeAll(it.id)}>
                         Eliminar
                       </button>
                     </div>
                   </li>
-                );
+                )
               })}
             </ul>
           </div>
@@ -99,14 +102,24 @@ export const Carrito = () => {
                 </div>
                 <hr className="border-secondary" />
                 <div className="d-grid gap-2">
-                  <button className="btn btn-accent py-2">Proceder al pago</button>
+                  <button className="btn btn-accent py-2" onClick={handleFakeCheckout}>Proceder al pago</button>
                   <Link to="/products" className="btn btn-ghost py-2">Seguir comprando</Link>
                 </div>
               </div>
             </div>
           </aside>
         </section>
+
+        {paid && (
+          <div className="checkout-overlay d-flex align-items-center justify-content-center">
+            <div className="checkout-card text-center">
+              <div className="checkmark">✓</div>
+              <h2 className="h4 mb-2 text-accent">¡Pago realizado!</h2>
+              <p className="text-secondary mb-0">Gracias por tu compra</p>
+            </div>
+          </div>
+        )}
       </main>
     </>
-  );
+  )
 }
