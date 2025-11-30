@@ -62,7 +62,7 @@ export const Carrito = () => {
                   >
                     <div className="d-flex align-items-center gap-3">
                       <img
-                        src={it.imgSource}
+                        src={it.imageSrc}
                         alt={it.title}
                         width={72}
                         height={72}

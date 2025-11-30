@@ -4,7 +4,7 @@ export type Product = {
     description: string;
     category: string;
     price: number;
-    imgSource: string;
+    imageSrc: string;
 };
 
 export const products: Product[] = [
@@ -14,7 +14,7 @@ export const products: Product[] = [
         description: "Velocidad y rendimiento de última generación a un precio excelente.",
         category: "Consolas",
         price: 299990,
-        imgSource: "/img/seriesS.png"
+        imageSrc: "/img/seriesS.png"
     },
     {
         id: 2,
@@ -22,7 +22,7 @@ export const products: Product[] = [
         description: "Consola más potente de Microsoft con 1TB de almacenamiento.",
         category: "Consolas",
         price: 629990,
-        imgSource: "/img/seriesX.png"
+        imageSrc: "/img/seriesX.png"
     },
     {
         id: 3,
@@ -30,7 +30,7 @@ export const products: Product[] = [
         description: "Ryzen 7, RTX 4070, 32GB RAM. Ideal para gaming extremo.",
         category: "Computadores",
         price: 1199990,
-        imgSource: "/img/pcnoBG.png"
+        imageSrc: "/img/pcnoBG.png"
     },
     {
         id: 4,
@@ -38,7 +38,7 @@ export const products: Product[] = [
         description: "Switches rojos ultra rápidos, ideal para eSports.",
         category: "Periféricos",
         price: 89990,
-        imgSource: "/img/tecladonoBG.png"
+        imageSrc: "/img/tecladonoBG.png"
     },
     {
         id: 5,
@@ -46,7 +46,7 @@ export const products: Product[] = [
         description: "Consola de nueva generación con gráficos 4K y mando DualSense.",
         category: "Consolas",
         price: 649990,
-        imgSource: "/img/ps5noBG.png"
+        imageSrc: "/img/ps5noBG.png"
     },
     {
         id: 6,
@@ -54,7 +54,7 @@ export const products: Product[] = [
         description: "Sensor HERO 25K, diseño ligero y preciso.",
         category: "Periféricos",
         price: 69990,
-        imgSource: "/img/mouseG.png"
+        imageSrc: "/img/mouseG.png"
     },
     {
         id: 7,
@@ -62,6 +62,6 @@ export const products: Product[] = [
         description: "Sonido envolvente 7.1 y micrófono desmontable.",
         category: "Periféricos",
         price: 79990,
-        imgSource: "/img/audifonos.png"
+        imageSrc: "/img/audifonos.png"
     }
 ];

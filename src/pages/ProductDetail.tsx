@@ -22,7 +22,7 @@ export const ProductDetail = () => {
     <div className="container py-5">
     <div className="row g-5 align-items-center">
       <div className="col-md-6 text-center">
-        <img src={product.imgSource} className="img-fluid card-img-top" alt={product.title}/>
+        <img src={product.imageSrc} className="img-fluid card-img-top" alt={product.title}/>
       </div>
 
       <div className="col-md-6">
