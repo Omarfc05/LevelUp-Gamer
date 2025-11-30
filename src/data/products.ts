@@ -1,67 +1,22 @@
-export type Product = {
-    id: number;
-    title: string;
-    description: string;
-    category: string;
-    price: number;
-    imageSrc: string;
+// src/api/products.ts
+
+import { api } from "../api/client";
+import type { Product } from "../contexts/CartContext";
+
+export const getProducts = async (): Promise<Product[]> => {
+  const res = await api.get<Product[]>("/products");
+  // si tu back devuelve imgSource, aquí lo normalizamos a imageSrc
+  return res.data.map((p: any) => ({
+    ...p,
+    imageSrc: p.imageSrc ?? p.imgSource ?? p.image, // por si acaso
+  }));
 };
 
-export const products: Product[] = [
-    {
-        id: 1,
-        title: "Xbox Series S",
-        description: "Velocidad y rendimiento de última generación a un precio excelente.",
-        category: "Consolas",
-        price: 299990,
-        imageSrc: "/img/seriesS.png"
-    },
-    {
-        id: 2,
-        title: "Xbox Series X",
-        description: "Consola más potente de Microsoft con 1TB de almacenamiento.",
-        category: "Consolas",
-        price: 629990,
-        imageSrc: "/img/seriesX.png"
-    },
-    {
-        id: 3,
-        title: "PC Gamer RGB",
-        description: "Ryzen 7, RTX 4070, 32GB RAM. Ideal para gaming extremo.",
-        category: "Computadores",
-        price: 1199990,
-        imageSrc: "/img/pcnoBG.png"
-    },
-    {
-        id: 4,
-        title: "Teclado Mecánico RGB",
-        description: "Switches rojos ultra rápidos, ideal para eSports.",
-        category: "Periféricos",
-        price: 89990,
-        imageSrc: "/img/tecladonoBG.png"
-    },
-    {
-        id: 5,
-        title: "PlayStation 5",
-        description: "Consola de nueva generación con gráficos 4K y mando DualSense.",
-        category: "Consolas",
-        price: 649990,
-        imageSrc: "/img/ps5noBG.png"
-    },
-    {
-        id: 6,
-        title: "Mouse Gamer Logitech G Pro",
-        description: "Sensor HERO 25K, diseño ligero y preciso.",
-        category: "Periféricos",
-        price: 69990,
-        imageSrc: "/img/mouseG.png"
-    },
-    {
-        id: 7,
-        title: "Auriculares HyperX Cloud II",
-        description: "Sonido envolvente 7.1 y micrófono desmontable.",
-        category: "Periféricos",
-        price: 79990,
-        imageSrc: "/img/audifonos.png"
-    }
-];
+export const getProduct = async (id: number): Promise<Product> => {
+  const res = await api.get<Product>(`/products/${id}`);
+  const p: any = res.data;
+  return {
+    ...p,
+    imageSrc: p.imageSrc ?? p.imgSource ?? p.image,
+  };
+};

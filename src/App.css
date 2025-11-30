@@ -334,3 +334,163 @@ body{
   height: 2.25rem;
   padding: 0;
 }
+.input-admin {
+  padding: 4px 8px !important;
+  font-size: 0.85rem !important;
+  background: #0f0f0f !important;
+  border: 1px solid #333 !important;
+  color: #fff !important;
+  height: 34px !important;
+  border-radius: 4px !important;
+}
+
+
+.admin-card {
+  background: radial-gradient(circle at top left, #111827 0, #020617 40%, #000 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(30, 144, 255, 0.5); /* azul eléctrico */
+  box-shadow:
+    0 0 20px rgba(30, 144, 255, 0.35),
+    0 0 35px rgba(57, 255, 20, 0.25);
+}
+
+/* encabezados dentro del panel admin */
+.admin-card-title {
+  font-family: "Orbitron", system-ui, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+/* Inputs finitos con look gamer */
+.admin-input {
+  padding: 6px 10px !important;
+  font-size: 0.9rem !important;
+  height: 36px !important;
+  border-radius: 8px !important;
+  background: rgba(3, 7, 18, 0.95) !important;
+  border: 1px solid rgba(148, 163, 184, 0.6) !important;
+  color: #e5e7eb !important;
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.8);
+}
+
+.admin-input::placeholder {
+  color: rgba(148, 163, 184, 0.7);
+}
+
+.admin-input:focus {
+  outline: none !important;
+  border-color: #39ff14 !important;
+  box-shadow:
+    0 0 8px rgba(57, 255, 20, 0.9),
+    0 0 18px rgba(30, 144, 255, 0.6);
+}
+
+/* Textarea a juego */
+.admin-textarea {
+  min-height: 70px;
+  max-height: 140px;
+  padding: 8px 10px !important;
+  font-size: 0.9rem !important;
+  border-radius: 10px !important;
+  background: rgba(3, 7, 18, 0.95) !important;
+  border: 1px solid rgba(148, 163, 184, 0.6) !important;
+  color: #e5e7eb !important;
+  resize: vertical;
+}
+
+.admin-textarea:focus {
+  outline: none !important;
+  border-color: #1e90ff !important;
+  box-shadow:
+    0 0 8px rgba(30, 144, 255, 0.9),
+    0 0 16px rgba(57, 255, 20, 0.5);
+}
+
+/* Botones neon exclusivos del admin */
+.btn-admin-primary {
+  background: linear-gradient(90deg, #39ff14, #1e90ff);
+  border: none;
+  color: #000;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 0 12px rgba(57, 255, 20, 0.9),
+    0 0 24px rgba(30, 144, 255, 0.7);
+}
+
+.btn-admin-primary:hover {
+  filter: brightness(1.1);
+  box-shadow:
+    0 0 16px rgba(57, 255, 20, 1),
+    0 0 32px rgba(30, 144, 255, 0.9);
+}
+
+.btn-admin-ghost {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  color: #e5e7eb;
+  background: transparent;
+}
+
+.btn-admin-ghost:hover {
+  border-color: #1e90ff;
+  color: #1e90ff;
+  box-shadow: 0 0 12px rgba(30, 144, 255, 0.75);
+}
+
+/* Botones de la tabla */
+.btn-admin-edit {
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.9);
+  color: #e0f2fe;
+  background: rgba(8, 47, 73, 0.8);
+  font-size: 0.78rem;
+  padding: 4px 10px;
+}
+
+.btn-admin-edit:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+}
+
+.btn-admin-delete {
+  border-radius: 999px;
+  border: 1px solid rgba(248, 113, 113, 0.9);
+  color: #fee2e2;
+  background: rgba(127, 29, 29, 0.85);
+  font-size: 0.78rem;
+  padding: 4px 10px;
+}
+
+.btn-admin-delete:hover {
+  border-color: #f97373;
+  box-shadow: 0 0 10px rgba(248, 113, 113, 0.85);
+}
+
+/* Tabla gamer */
+.admin-table-wrapper {
+  background: radial-gradient(circle at top, #020617 0, #020617 45%, #000 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(30, 64, 175, 0.7);
+  box-shadow:
+    0 0 20px rgba(30, 64, 175, 0.7),
+    0 0 30px rgba(15, 23, 42, 0.9);
+}
+
+.table.admin-table > :not(caption) > * > * {
+  border-bottom-color: rgba(30, 64, 175, 0.6);
+}
+
+.table.admin-table thead th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom-width: 2px;
+}
+
+/* Badge modo edición */
+.badge-editing {
+  background: linear-gradient(90deg, #f97316, #ec4899);
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+

@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+import { api } from "../api/client";
 
 type User = {
   id: number;
@@ -16,38 +23,46 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+type AuthStorage = {
+  token: string;
+  user: User;
+};
+
+const STORAGE_KEY = "levelup_auth";
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
+  // Cargar info desde localStorage al iniciar la app
   useEffect(() => {
-    const saved = localStorage.getItem("levelup_auth");
-    if (saved) {
-      const parsed = JSON.parse(saved);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) return;
+    try {
+      const parsed: AuthStorage = JSON.parse(stored);
       setUser(parsed.user);
       setToken(parsed.token);
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
     }
   }, []);
 
   const login = async (email: string, password: string) => {
-    const res = await fetch("http://localhost:8080/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+    const res = await api.post<AuthStorage>("/auth/login", {
+      email,
+      password,
     });
 
-    if (!res.ok) throw new Error("Credenciales inválidas");
-
-    const data = await res.json(); // { token, user }
+    const data = res.data;
     setUser(data.user);
     setToken(data.token);
-    localStorage.setItem("levelup_auth", JSON.stringify(data));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   };
 
   const logout = () => {
     setUser(null);
     setToken(null);
-    localStorage.removeItem("levelup_auth");
+    localStorage.removeItem(STORAGE_KEY);
   };
 
   return (

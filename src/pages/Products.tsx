@@ -1,5 +1,6 @@
+// src/pages/Products.tsx
 import { Link } from "react-router-dom";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useCart, type Product } from "../contexts/CartContext";
 import { getProducts } from "../api/products";
 
@@ -10,20 +11,17 @@ export const Products = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // rangos reales según lo que venga del backend
-  const [minPriceProductos, setMinPriceProductos] = useState(0);
-  const [maxPriceProductos, setMaxPriceProductos] = useState(0);
+  const [minPriceBase, setMinPriceBase] = useState(0);
+  const [maxPriceBase, setMaxPriceBase] = useState(0);
 
-  // valores que usa el filtro (inputs)
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
-
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  // cargar productos desde el backend
   useEffect(() => {
     const load = async () => {
       try {
+        setLoading(true);
         const data = await getProducts();
         setProducts(data);
 
@@ -32,11 +30,12 @@ export const Products = () => {
           const min = Math.min(...prices);
           const max = Math.max(...prices);
 
-          setMinPriceProductos(min);
-          setMaxPriceProductos(max);
+          setMinPriceBase(min);
+          setMaxPriceBase(max);
           setMinPrice(min);
           setMaxPrice(max);
         }
+        setError(null);
       } catch (e) {
         console.error(e);
         setError("No se pudieron cargar los productos.");
@@ -48,56 +47,37 @@ export const Products = () => {
     load();
   }, []);
 
-  // categorías dinámicas desde el backend
-  const categories = useMemo(
-    () => [
-      "all",
-      ...Array.from(
-        new Set(
-          products
-            .map((p) => p.category)
-            .filter((c): c is string => Boolean(c))
-        )
-      ),
-    ],
-    [products]
-  );
+  const categories = ["all", ...Array.from(new Set(products.map((p) => p.category)))];
 
-  // mismos filtros que tenías antes, pero sobre products del backend
-  const filteredProducts = useMemo(
-    () =>
-      products.filter(
-        (p) =>
-          (selectedCategory === "all" || p.category === selectedCategory) &&
-          p.price >= minPrice &&
-          p.price <= maxPrice
-      ),
-    [products, selectedCategory, minPrice, maxPrice]
-  );
+  const filteredProducts = products.filter((p) => {
+    const matchCategory =
+      selectedCategory === "all" || p.category === selectedCategory;
+    const matchPrice =
+      p.price >= minPrice &&
+      p.price <= (maxPrice || Number.MAX_SAFE_INTEGER);
+
+    return matchCategory && matchPrice;
+  });
 
   const handleReset = () => {
     setSelectedCategory("all");
-    setMinPrice(minPriceProductos);
-    setMaxPrice(maxPriceProductos);
+    setMinPrice(minPriceBase);
+    setMaxPrice(maxPriceBase);
   };
 
   if (loading) {
     return (
-      <header className="container py-5 text-center">
-        <h1 className="display-5 fw-bold title">Catálogo de Productos</h1>
-        <p className="lead text-secondary">
-          Cargando productos...
-        </p>
-      </header>
+      <main className="container py-5">
+        <p>Cargando productos…</p>
+      </main>
     );
   }
 
   if (error) {
     return (
-      <header className="container py-5 text-center">
-        <h1 className="display-5 fw-bold title">Catálogo de Productos</h1>
-        <p className="lead text-danger">{error}</p>
-      </header>
+      <main className="container py-5">
+        <p className="text-danger">{error}</p>
+      </main>
     );
   }
 
@@ -142,12 +122,12 @@ export const Products = () => {
               className="form-control form-control-sm bg-dark text-white border-secondary"
               style={{ width: 110 }}
               value={minPrice}
-              min={minPriceProductos}
-              max={maxPriceProductos}
+              min={minPriceBase}
+              max={maxPriceBase}
               onChange={(e) => {
                 const v =
                   e.target.value === ""
-                    ? minPriceProductos
+                    ? minPriceBase
                     : Number(e.target.value);
                 setMinPrice(v);
               }}
@@ -162,12 +142,12 @@ export const Products = () => {
               className="form-control form-control-sm bg-dark text-white border-secondary"
               style={{ width: 110 }}
               value={maxPrice}
-              min={minPriceProductos}
-              max={maxPriceProductos}
+              min={minPriceBase}
+              max={maxPriceBase || undefined}
               onChange={(e) => {
                 const v =
                   e.target.value === ""
-                    ? maxPriceProductos
+                    ? maxPriceBase
                     : Number(e.target.value);
                 setMaxPrice(v);
               }}
@@ -186,7 +166,9 @@ export const Products = () => {
 
       <main className="container py-5">
         <div className="row g-4">
-          {filteredProducts.length === 0 && <p>No hay Productos</p>}
+          {filteredProducts.length === 0 && (
+            <p className="text-center">No hay productos.</p>
+          )}
 
           {filteredProducts.map((product) => (
             <div className="col-md-4" key={product.id}>

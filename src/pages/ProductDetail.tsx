@@ -1,74 +1,82 @@
-import { Link, useParams } from "react-router-dom"
-import { products } from "../data/products"
-import { useCart } from "../contexts/CartContext"
+// src/pages/ProductDetail.tsx
+import { useEffect, useState } from "react";
+import { useParams, Link, Navigate } from "react-router-dom";
+
+import type { Product } from "../contexts/CartContext";
+import { useCart } from "../contexts/CartContext";
+import { getProduct } from "../data/products";
 
 export const ProductDetail = () => {
-  const { id } = useParams<{ id: string }>()
-  const pid = Number(id)
-  const product = products.find((p) => p.id === pid)
-  const { addToCart, formatCLP } = useCart()
+  const { id } = useParams<{ id: string }>();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+  const { addToCart, formatCLP } = useCart();
 
-  if (!product) {
+  useEffect(() => {
+    const load = async () => {
+      try {
+        if (!id) return;
+        const data = await getProduct(Number(id));
+        setProduct(data);
+        setNotFound(false);
+      } catch (e: any) {
+        console.error(e);
+        if (e.response?.status === 404) {
+          setNotFound(true);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [id]);
+
+  if (notFound) {
+    // o <Navigate to="/404" replace />
+    return <Navigate to="/404" replace />;
+  }
+
+  if (loading || !product) {
     return (
-      <main className="container py-5 text-center">
-        <h1 className="display-6 fw-bold title">Producto no encontrado</h1>
-        <Link to="/products" className="btn btn-ghost mt-3">Volver al Catálogo</Link>
+      <main className="container py-5">
+        <p>Cargando producto…</p>
       </main>
-    )
+    );
   }
 
   return (
-    <>
-    <div className="container py-5">
-    <div className="row g-5 align-items-center">
-      <div className="col-md-6 text-center">
-        <img src={product.imageSrc} className="img-fluid card-img-top" alt={product.title}/>
-      </div>
-
-      <div className="col-md-6">
-        <h1 className="titulo">{product.title}</h1>
-        <p>{product.description}</p>
-        <h3 className="fw-bold text-accent mt-4">{formatCLP(product.price)}</h3>
-
-        <div className="mt-4 d-flex gap-3 flex-wrap">
-          <button className="btn btn-accent px-4" onClick={() => addToCart(product)}>Añadir al Carrito</button>
-          <Link to={"/products"} className="btn btn-ghost">Volver al Catálogo</Link>
+    <main className="container py-5">
+      <div className="row g-4 align-items-center">
+        <div className="col-md-6 text-center">
+          <img
+            src={product.imageSrc}
+            alt={product.title}
+            className="img-fluid p-4"
+          />
         </div>
-      </div>
-    </div>
+        <div className="col-md-6">
+          <h1 className="h3 mb-3">{product.title}</h1>
+          <p className="text-secondary">{product.description}</p>
+          <p className="h4 text-accent mb-4">
+            {formatCLP(product.price)}
+          </p>
 
-    <div className="mt-5">
-      <h2 className="gris">Características principales</h2>
-      <h1> ¡¡ESTOS SON PLACEHOLDERS ANTERIORES!!</h1>
-      <div className="row row-cols-1 row-cols-md-3 g-4 mt-3">
-        <div className="col">
-          <div className="card h-100">
-            <div className="card-body">
-              <h5 className="card-title">Rendimiento</h5>
-              <p className="card-text">Hasta 120 fps en juegos compatibles para una experiencia fluida y competitiva.</p>
-            </div>
-          </div>
-        </div>
-        <div className="col">
-          <div className="card h-100">
-            <div className="card-body">
-              <h5 className="card-title">Almacenamiento</h5>
-              <p className="card-text">512 GB SSD ultrarrápido que reduce tiempos de carga y mejora el rendimiento general.</p>
-            </div>
-          </div>
-        </div>
-        <div className="col">
-          <div className="card h-100">
-            <div className="card-body">
-              <h5 className="card-title">Game Pass</h5>
-              <p className="card-text">Acceso inmediato a una amplia biblioteca de juegos con Xbox Game Pass Ultimate.</p>
-            </div>
+          <div className="d-flex gap-2">
+            <button
+              className="btn btn-accent"
+              type="button"
+              onClick={() => addToCart(product)}
+            >
+              Añadir al carrito
+            </button>
+            <Link to="/products" className="btn btn-ghost">
+              ← Volver al catálogo
+            </Link>
           </div>
         </div>
       </div>
-    </div>
-
-    <div className="mt-5">
+      <div className="mt-5">
       <h2 className="gris">Productos Relacionados</h2>
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-3">
         <div className="col">
@@ -103,8 +111,6 @@ export const ProductDetail = () => {
         </div>
       </div>
     </div>
-
-  </div>
-    </>
-  )
-}
+    </main>
+  );
+};
