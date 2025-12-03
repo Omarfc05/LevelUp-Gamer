@@ -20,6 +20,7 @@ import { AdminDashboard } from "./pages/AdminDashboard";
 import { AdminProducts } from "./pages/AdminProducts";
 import { AdminUsers } from "./pages/AdminUsers";
 import { AdminRoute } from "./routes/AdminRoute";
+import { Forbidden } from './pages/Forbidden';
 
 
 
@@ -40,6 +41,7 @@ function App() {
     <Route path="/contacto" element={<Contact />} />
     <Route path="/carrito" element={<Carrito />} />
     <Route path="/login" element={<Login />} />
+    <Route path="/forbidden" element={<Forbidden />} />
 
     {/* RUTAS ADMIN PROTEGIDAS */}
     <Route
